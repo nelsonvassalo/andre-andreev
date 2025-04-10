@@ -58,9 +58,8 @@ const VideoPlayer = ({ video }) => {
       player.current = new Player(container.current, defaultOptions);
 
       player.current.ready().then(() => {
-        player.current.play();
         setIsLoaded(true);
-        setIsPlaying(true);
+        player.current.play();
       });
 
       // You can add event listeners here if needed
@@ -99,6 +98,7 @@ const VideoPlayer = ({ video }) => {
             src={video.loop.asset.url}
             className="w-full h-full"
             animate={{ opacity: isLoaded ? 0 : 1 }}
+            transition={{ delay: 1, duration: 0.75 }}
           />
         </div>
         <m.div
@@ -106,7 +106,7 @@ const VideoPlayer = ({ video }) => {
           ref={container}
           initial={{ opacity: 0 }}
           animate={{ opacity: isLoaded ? 1 : 0 }}
-          transition={{ duration: 1.5, ease: "easeInOut" }}
+          transition={{ duration: 1.5, delay: 1, ease: "easeInOut" }}
         ></m.div>
 
         <div className="row-start-1 col-start-1 w-full h-full flex items-center justify-center z-10 ">
