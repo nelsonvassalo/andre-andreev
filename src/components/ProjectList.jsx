@@ -64,7 +64,7 @@ const ProjectList = ({ posts, arr }) => {
       </AP>
 
       {arr.map((el, i) => (
-        <Project item={posts[0]} key={i} index={i} />
+        <Project item={posts[0]} key={i} index={i} autoPlay={true} />
       ))}
       {/* <AP>{!isBottomView ? <BlurOverlay /> : null}</AP> */}
     </ul>

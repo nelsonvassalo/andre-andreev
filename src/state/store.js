@@ -9,4 +9,6 @@ export const useStore = create((set) => ({
   setShow: (value) => set({ show: value }),
   scrollPosition: 0,
   setScroll: (value) => set({ scrollPosition: value }),
+  autoPlay: false,
+  setAutoPlay: (value) => set({ autoPlay: value }),
 }));

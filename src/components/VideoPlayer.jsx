@@ -6,6 +6,7 @@ import { useStore } from "@/state/store";
 import { motion as m } from "motion/react";
 import { useTransitionRouter } from "next-view-transitions";
 import Player from "@vimeo/player";
+import { usePathname, useRouter } from "next/navigation";
 
 const VideoPlayer = ({ video }) => {
   const router = useTransitionRouter();
@@ -15,8 +16,8 @@ const VideoPlayer = ({ video }) => {
   const player = useRef(null);
 
   const [isLoaded, setIsLoaded] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const { show, current } = useStore();
+  const { show, current, autoPlay } = useStore();
+  const [isPlaying, setIsPlaying] = useState(false || autoPlay);
 
   const togglePlay = () => {
     if (isPlaying) {
@@ -57,11 +58,6 @@ const VideoPlayer = ({ video }) => {
       // Initialize the Vimeo Player
       player.current = new Player(container.current, defaultOptions);
 
-      player.current.ready().then(() => {
-        setIsLoaded(true);
-        player.current.play();
-      });
-
       // You can add event listeners here if needed
       player.current.on("play", () => {
         setIsPlaying(true);
@@ -69,6 +65,11 @@ const VideoPlayer = ({ video }) => {
 
       player.current.on("pause", () => {
         setIsPlaying(false);
+      });
+
+      player.current.ready().then(() => {
+        player.current.play();
+        setIsLoaded(true);
       });
     }
 

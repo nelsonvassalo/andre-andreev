@@ -12,10 +12,11 @@ const Project = ({ item, index }) => {
   const router = useTransitionRouter();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: false, amount: "all" });
-  const { setCurrent, scrollPosition } = useStore();
+  const { setCurrent, scrollPosition, setAutoPlay } = useStore();
   const { navigateToProject } = useViewTransitionWithScroll();
 
   const handleNavigation = (e) => {
+    setAutoPlay(true);
     e.preventDefault();
 
     // Set current item for view transition naming
