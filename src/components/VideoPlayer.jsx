@@ -43,7 +43,7 @@ const VideoPlayer = ({ video }) => {
   useEffect(() => {
     if (div.current && !player.current) {
       const defaultOptions = {
-        id: 821424276,
+        id: 185412081,
         width: window.innerWidth,
         height: 720,
         autoplay: true, // Enable autoplay
