@@ -136,7 +136,7 @@ ul.grid li:hover h2 {
 @supports (view-transition-name: custom) {
 
   ::view-transition-group(root) {
-    // animation: none
+    animation: none;
     animation-duration: 0.2s;
   }
 
@@ -170,7 +170,7 @@ body {
 .project {
   aspect-ratio: 2.3518637238;
   contain: layout size;
-  scroll-margin-block: 50vh;
+  scroll-margin-top: calc((100vh - (100vw / 2.3518637238)) / 2);
 }
 
 /* Vimeo player consistency */
