@@ -1,0 +1,26 @@
+@font-face {
+    font-family: 'Salina';
+    src: url('/fonts/Salina-Regular.woff2') format('woff2'),
+        url('/fonts/Salina-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Salina';
+    src: url('/fonts/Salina-ExtraLight.woff2') format('woff2'),
+        url('/fonts/Salina-ExtraLight.woff') format('woff');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Salina';
+    src: url('/fonts/Salina-Book.woff2') format('woff2'),
+        url('/fonts/Salina-Book.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
