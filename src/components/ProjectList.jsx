@@ -5,8 +5,10 @@ import { motion as m, AnimatePresence as AP } from "motion/react";
 import { useDebouncedCallback, sub } from "use-debounce";
 import { useStore } from "@/state/store";
 import BlurOverlay from "./BlurOverlay";
+import { usePathname } from "next/navigation";
 
 const ProjectList = ({ posts, arr }) => {
+  const pathname = usePathname();
   // 2,3518637238
 
   const [isTopView, setIsTopView] = useState(true);
@@ -40,10 +42,14 @@ const ProjectList = ({ posts, arr }) => {
     window.addEventListener("scroll", onScroll);
     window.addEventListener("resize", onResize);
 
+    setTimeout(() => {
+      document.documentElement.classList.remove("coming-back");
+    }, 500);
+
     onResize();
 
     setCurrent(null);
-  }, []);
+  }, [pathname]);
 
   return (
     <ul

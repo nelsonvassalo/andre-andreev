@@ -40,7 +40,7 @@ const Project = ({ item, index }) => {
   return (
     <li
       ref={ref}
-      className={`w-full flex items-center snap-center snap-mandatory relative project aspect-[2.3518637238]`}
+      className={`w-full flex items-center snap-center relative project aspect-[2.3518637238]`}
       initial="hidden"
       id={`item-${index}`}
       style={{

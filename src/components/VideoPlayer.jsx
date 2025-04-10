@@ -29,6 +29,7 @@ const VideoPlayer = ({ video }) => {
 
   const handleClick = async (e) => {
     router.push(`/#item-${current}`);
+    document.documentElement.classList.add("coming-back");
   };
 
   useEffect(() => {
@@ -65,12 +66,10 @@ const VideoPlayer = ({ video }) => {
       // You can add event listeners here if needed
       player.current.on("play", () => {
         setIsPlaying(true);
-        console.log("Video is playing");
       });
 
       player.current.on("pause", () => {
         setIsPlaying(false);
-        console.log("Video is paused");
       });
     }
 
