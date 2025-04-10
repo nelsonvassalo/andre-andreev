@@ -4,45 +4,54 @@ import Link from "next/link";
 import Video from "@/components/Video";
 import { useStore } from "@/state/store";
 import { useInView } from "motion/react";
-import { motion as m, AnimatePresence as AP, inView } from "framer-motion";
+import { motion as m } from "framer-motion";
 import { useTransitionRouter } from "next-view-transitions";
+import { useViewTransitionWithScroll } from "@/hooks/useViewTransitionWithScroll";
 
 const Project = ({ item, index }) => {
   const router = useTransitionRouter();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: false, amount: "all" });
-  const { setScroll, scroll, setCurrent } = useStore();
+  const { setCurrent, scrollPosition } = useStore();
+  const { navigateToProject } = useViewTransitionWithScroll();
 
-  const savePos = (e) => {
+  const handleNavigation = (e) => {
     e.preventDefault();
-    const scrollY = window.scrollY;
-    setCurrent(index);
-    setScroll(scrollY);
 
-    router.push(`/projects/${item.slug.current}`);
+    // Set current item for view transition naming
+    setCurrent(index);
+
+    // Navigate to project using our custom hook that handles scroll position
+    navigateToProject(item.slug.current, index);
   };
 
   useEffect(() => {
-    window.scrollTo(0, scroll);
-    console.log({ scroll });
-  }, [scroll]);
+    if (ref.current) {
+      ref.current.style.viewTransitionName = `transition-${index}`;
+    }
+
+    return () => {
+      if (ref.current) {
+        ref.current.style.viewTransitionName = "";
+      }
+    };
+  }, [index]);
 
   return (
     <li
       ref={ref}
       className={`w-full flex items-center snap-center snap-mandatory relative project aspect-[2.3518637238]`}
       initial="hidden"
+      id={`item-${index}`}
       style={{
-        viewTransitionName: `transition-${index}`,
         viewTransitionClass: "thumbnail",
       }}
     >
       <Link
         href={`/projects/${item.slug.current}`}
-        className="relative grid grid-cols-1 grid-rows-1"
+        className="relative grid grid-cols-1 grid-rows-1 w-full h-full"
         prefetch={true}
-        passHref
-        onClick={savePos}
+        onClick={handleNavigation}
       >
         <div className="col-start-1 row-start-1 top-0 w-full h-full z-10 flex items-center justify-center tracking-[0.15em] !font-[100] font-2xl uppercase">
           <m.h2
@@ -56,10 +65,8 @@ const Project = ({ item, index }) => {
                 },
               },
             }}
-            transition={{ duration: 0 }}
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
-            exit="hidden"
           >
             {[...`${item.EN_title} / ${item.BG_title}`].map((char, i) => (
               <m.span
@@ -85,7 +92,11 @@ const Project = ({ item, index }) => {
             ))}
           </m.h2>
         </div>
-        <Video src={item.loop.asset.url} isInView={isInView} />
+
+        {/* Video component with consistent dimensions */}
+        <div className="col-start-1 row-start-1 w-full h-full">
+          <Video src={item.loop.asset.url} isInView={isInView} />
+        </div>
       </Link>
     </li>
   );

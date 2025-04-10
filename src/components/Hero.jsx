@@ -1,5 +1,5 @@
 const Hero = () => (
-  <article className="grid grid-cols-1 grid-rows-1 aspect-video snap-start">
+  <article className="grid grid-cols-1 grid-rows-1 aspect-[2.3518637238] snap-start">
     <div className="col-start-1 row-start-1 flex items-center justify-center w-full h-full z-10">
       <svg
         width="783"
@@ -14,9 +14,9 @@ const Hero = () => (
         />
       </svg>
     </div>
-    <div className="row-start-1 col-start-1 aspect-video w-full relative">
+    <div className="row-start-1 col-start-1 aspect-[2.3518637238] w-full relative">
       <iframe
-        src="https://player.vimeo.com/video/273789434?background=1&autoplay=1&muted=1&loop=1&controls=0&title=0&byline=0&portrait=0&app_id=58479"
+        src="https://player.vimeo.com/video/821424276?background=1&autoplay=1&muted=1&loop=1&controls=0&title=0&byline=0&portrait=0&app_id=58479"
         frameBorder="0"
         autoPlay
         allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"

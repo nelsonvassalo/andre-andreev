@@ -6,6 +6,7 @@ import { useStore } from "@/state/store";
 import { motion as m } from "motion/react";
 import { useTransitionRouter } from "next-view-transitions";
 import Player from "@vimeo/player";
+import { useViewTransitionWithScroll } from "@/hooks/useViewTransitionWithScroll";
 
 const VideoPlayer = ({ video }) => {
   const router = useTransitionRouter();
@@ -13,7 +14,7 @@ const VideoPlayer = ({ video }) => {
   const div = useRef(null);
   const container = useRef(null);
   const player = useRef(null);
-  const iframe = useRef(null);
+
   const [isLoaded, setIsLoaded] = useState(false);
   const [isPlaying, setIsPlaying] = useState(true);
   const { show, current } = useStore();
@@ -24,6 +25,10 @@ const VideoPlayer = ({ video }) => {
     } else {
       player.current.play();
     }
+  };
+
+  const handleClick = async (e) => {
+    router.push(`/#item-${current}`);
   };
 
   useEffect(() => {
@@ -38,9 +43,9 @@ const VideoPlayer = ({ video }) => {
   useEffect(() => {
     if (div.current && !player.current) {
       const defaultOptions = {
-        id: 273789434,
-        width: 1920,
-        height: 1080,
+        id: 821424276,
+        width: window.innerWidth,
+        height: 720,
         autoplay: true, // Enable autoplay
         controls: false, // Hide UI controls
         loop: false,
@@ -81,11 +86,11 @@ const VideoPlayer = ({ video }) => {
   return (
     <>
       <div
-        className="player w-full grid grid-cols-subgrid grid-rows-subgrid col-start-1 row-start-1 z-10 relative"
+        className="player w-full grid grid-cols-1 grid-rows-1 col-start-1 row-start-1 z-10 relative"
         ref={div}
       >
-        <div className="aspect-[2.3518637238] w-full h-full row-start-1 col-start-1">
-          <video
+        <div className="aspect-[2.3518637238] w-full h-full row-start-1 col-start-1 flex items-center justify-center">
+          <m.video
             playsInline
             loop
             ref={ref}
@@ -94,10 +99,11 @@ const VideoPlayer = ({ video }) => {
             preload="auto"
             src={video.loop.asset.url}
             className="w-full h-full"
+            animate={{ opacity: isLoaded ? 0 : 1 }}
           />
         </div>
         <m.div
-          className="absolute w-full h-full [&_iframe]:w-full [&_iframe]:aspect-[2.3518637238]"
+          className="row-start-1 col-start-1 flex items-center w-full h-full [&_iframe]:w-full"
           ref={container}
           initial={{ opacity: 0 }}
           animate={{ opacity: isLoaded ? 1 : 0 }}
@@ -165,13 +171,10 @@ const VideoPlayer = ({ video }) => {
         </div>
       </div>
       <m.div animate={{ opacity: show ? 1 : 0 }}>
-        <Link
+        <a
           className="px-4 py-2 z-20 left-1/2 -translate-x-1/2 fixed flex items-center gap-2 text-[13px] font-[100] tracking-[0.13em] uppercase text-white bottom-16 bg-[rgba(217,217,217,0.1)] border-[0.5px] border-white/10  rounded-[13px] backdrop-blur-[56px] hover:border-white/30 transition-colors hover:font-[300] hover:tracking-[0.12em]"
-          href="/"
-          onClick={(e) => {
-            e.preventDefault();
-            router.push("/");
-          }}
+          // href="/#item-4"
+          onClick={handleClick}
         >
           <svg
             width="8"
@@ -189,7 +192,7 @@ const VideoPlayer = ({ video }) => {
             />
           </svg>{" "}
           Back to Listing
-        </Link>
+        </a>
       </m.div>
     </>
   );

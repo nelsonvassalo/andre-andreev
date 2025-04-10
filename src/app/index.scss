@@ -145,7 +145,7 @@ ul.grid li:hover h2 {
   ::view-transition-old(.thumbnail) {
     z-index: 0;
     animation-duration: 1.5s;
-    animation-fill-mode: both;
+    animation-fill-mode: forwards;
     animation-timing-function: cubic-bezier(1, 0, 0, 1);
     isolation: isolate;
   }
@@ -156,3 +156,37 @@ ul.grid li:hover h2 {
   }
 
 }
+
+
+/* Fix common layout shift issues */
+body {
+  overflow-y: scroll;
+  /* Always show scrollbar to prevent layout shifts */
+  scrollbar-gutter: stable;
+  /* Reserves space for scrollbar */
+}
+
+/* Project sizing consistency */
+.project {
+  aspect-ratio: 2.3518637238;
+  contain: layout size;
+  scroll-margin-block: 50vh;
+}
+
+/* Vimeo player consistency */
+iframe {
+  border: 0;
+}
+
+/* Ensure video elements have consistent sizing */
+// video {
+//   display: block;
+//   object-fit: cover;
+//   aspect-ratio: 2.3518637238/1;
+// }
+
+
+// [style*="view-transition-name"] {
+//   contain: layout;
+//   transform-origin: center;
+// }

@@ -3,21 +3,41 @@ import { useStore } from "@/state/store";
 import { useEffect, useRef } from "react";
 
 const Video = ({ src, isInView }) => {
-  const video = useRef(null);
-  const { setVideoTime } = useStore();
+  const videoRef = useRef(null);
+
   useEffect(() => {
-    if (video.current) {
+    const videoElement = videoRef.current;
+
+    if (videoElement) {
+      // Pre-set dimensions and aspect ratio to prevent layout shifts
+      videoElement.style.aspectRatio = "2.3518637238/1";
+
+      // Efficiently manage playback
       if (isInView) {
-        video.currentTime = 0;
-        video.current.play();
-        // setVideoTime(video.current.currentTime);
+        // Only reset time when coming into view
+        videoElement.currentTime = 0;
+
+        // Use play() Promise with error handling
+        const playPromise = videoElement.play();
+
+        if (playPromise !== undefined) {
+          playPromise.catch((error) => {
+            console.error("Video playback error:", error);
+          });
+        }
       } else {
-        video.current.pause();
+        // Pause if not in view
+        if (!videoElement.paused) {
+          videoElement.pause();
+        }
       }
     }
 
+    // Clean up
     return () => {
-      if (video.current) video.current.pause();
+      if (videoElement && !videoElement.paused) {
+        videoElement.pause();
+      }
     };
   }, [isInView]);
 
@@ -26,9 +46,10 @@ const Video = ({ src, isInView }) => {
       playsInline
       loop
       muted
-      ref={video}
+      ref={videoRef}
       src={src}
-      className="col-start-1 row-start-1 top-0 w-full h-full object-cover"
+      preload="metadata"
+      className="col-start-1 row-start-1 w-full h-full object-cover aspect-[2.3518637238]"
     />
   );
 };

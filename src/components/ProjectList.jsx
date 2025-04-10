@@ -11,7 +11,7 @@ const ProjectList = ({ posts, arr }) => {
 
   const [isTopView, setIsTopView] = useState(true);
   const [isBottomView, setIsBottomView] = useState(false);
-  const { viewMode, setCurrent } = useStore();
+  const { viewMode, setCurrent, scrollPosition } = useStore();
 
   const onScroll = (e) => {
     const { scrollY } = window;
@@ -43,17 +43,13 @@ const ProjectList = ({ posts, arr }) => {
     onResize();
 
     setCurrent(null);
-
-    // const vh = window.innerHeight * 0.01;
-    // document.documentElement.style.setProperty("--vh", `${vh}px`);
-    // return window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
     <ul
       className={`${
         viewMode == "grid" ? "grid grid-cols-2 p-1 gap-1" : "flex flex-col"
-      } relative z-0`}
+      } relative z-0  snap-mandatory snap-y`}
     >
       <AP>
         {/* {!isTopView ? (
