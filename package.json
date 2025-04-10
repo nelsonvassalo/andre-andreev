@@ -8,7 +8,6 @@
     "start": "next start",
     "lint": "next lint",
     "clean": "next clean --all",
-    "prepare": "npm install --legacy-peer-deps"
   },
   "dependencies": {
     "@react-three/fiber": "^8.17.14",
