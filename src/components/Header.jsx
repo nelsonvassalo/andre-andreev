@@ -2,11 +2,13 @@
 
 import { usePathname } from "next/navigation";
 import { motion as m } from "motion/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useStore } from "@/state/store";
+import Link from "next/link";
 
 const Header = () => {
   const { show, setShow, headerScrolled } = useStore();
+  const header = useRef(null);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -33,17 +35,41 @@ const Header = () => {
   }, [pathname]);
 
   useEffect(() => {
-    console.log({ headerScrolled });
-  }, [headerScrolled]);
+    const menus = Array.from(header.current.querySelectorAll("ul"));
+    const linkMap = menus.map((menu, mI) => {
+      const links = Array.from(menu.querySelectorAll("a"));
+      return links;
+    });
+
+    linkMap.forEach((menu, mI) => {
+      // Each language menu
+      menu.forEach((link, index) => {
+        // Each link in the menu
+        link.addEventListener("mouseenter", () => {
+          linkMap[0][index].style.fontWeight = "500";
+          linkMap[1][index].style.fontWeight = "500";
+          console.log("hovered");
+        });
+        link.addEventListener("mouseleave", () => {
+          linkMap[0][index].style.fontWeight = "100";
+          linkMap[1][index].style.fontWeight = "100";
+        });
+      });
+    });
+  }, []);
 
   return (
-    <m.header animate={{ opacity: show ? 1 : 0 }}>
+    <m.header animate={{ opacity: show ? 1 : 0 }} ref={header}>
       <nav
         className="fixed top-0 w-full text-white uppercase font-[100] tracking-[0.13em] text-[.8125rem] z-20"
         style={{ viewTransitionName: "nav-top", viewTransitionClass: "null" }}
       >
         <ul className="flex justify-between w-full p-4">
-          <li>Projects</li>
+          <li>
+            <Link href="/" className="transition-all">
+              Projects
+            </Link>
+          </li>
           <m.li
             className="tracking-[0.15em]"
             initial={{ y: "-100%", opacity: 0 }}
@@ -54,7 +80,11 @@ const Header = () => {
           >
             Andre Андреев
           </m.li>
-          <li>Info</li>
+          <li>
+            <Link href="/info" className="transition-all">
+              Info
+            </Link>
+          </li>
         </ul>
       </nav>
 
@@ -66,7 +96,11 @@ const Header = () => {
         }}
       >
         <ul className="flex justify-between w-full p-4">
-          <li>Проекти</li>
+          <li>
+            <Link href="/" className="transition-all">
+              Проекти
+            </Link>
+          </li>
           <m.li
             className="tracking-[0.15em]"
             initial={{ y: "100%" }}
@@ -77,7 +111,11 @@ const Header = () => {
           >
             Andre Андреев
           </m.li>
-          <li>Инфо</li>
+          <li>
+            <Link href="info" className="transition-all">
+              Инфо
+            </Link>
+          </li>
         </ul>
       </nav>
     </m.header>
