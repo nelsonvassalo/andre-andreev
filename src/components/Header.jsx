@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { useStore } from "@/state/store";
 
 const Header = () => {
-  const { show, setShow, setHeaderScrolled } = useStore();
+  const { show, setShow, headerScrolled } = useStore();
   const pathname = usePathname();
 
   useEffect(() => {
@@ -32,6 +32,10 @@ const Header = () => {
     };
   }, [pathname]);
 
+  useEffect(() => {
+    console.log({ headerScrolled });
+  }, [headerScrolled]);
+
   return (
     <m.header animate={{ opacity: show ? 1 : 0 }}>
       <nav
@@ -40,7 +44,16 @@ const Header = () => {
       >
         <ul className="flex justify-between w-full p-4">
           <li>Projects</li>
-          <li className="tracking-[0.15em]">Andre Андреев</li>
+          <m.li
+            className="tracking-[0.15em]"
+            initial={{ y: "-100%", opacity: 0 }}
+            animate={{
+              y: headerScrolled ? 0 : "-100%",
+              opacity: headerScrolled ? 1 : 0,
+            }}
+          >
+            Andre Андреев
+          </m.li>
           <li>Info</li>
         </ul>
       </nav>
@@ -54,7 +67,16 @@ const Header = () => {
       >
         <ul className="flex justify-between w-full p-4">
           <li>Проекти</li>
-          <li className="tracking-[0.15em]">Andre Андреев</li>
+          <m.li
+            className="tracking-[0.15em]"
+            initial={{ y: "100%" }}
+            animate={{
+              y: headerScrolled ? 0 : "100%",
+              opacity: headerScrolled ? 1 : 0,
+            }}
+          >
+            Andre Андреев
+          </m.li>
           <li>Инфо</li>
         </ul>
       </nav>

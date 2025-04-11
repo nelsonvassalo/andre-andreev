@@ -1,19 +1,12 @@
 "use client";
-import { motion as m, usePresence, useAnimate, stagger } from "motion/react";
+import { motion as m, useAnimate, stagger, useInView } from "motion/react";
 import { useEffect } from "react";
+import { useStore } from "@/state/store";
 
 const Hero = () => {
   const [scope, animate] = useAnimate();
-
-  const parentVariants = {
-    initial: { filter: "blur(52px)", y: 50, scale: 1.5 },
-    animate: { filter: "blur(0px)", y: 0, scale: 1 },
-  };
-
-  const childVariants = {
-    initial: { y: "100%", filter: "blur(6px)" },
-    animate: { filter: "blur(0px)", y: 0, transition: { duration: 0.8 } },
-  };
+  const isInView = useInView(scope, { amount: "some" });
+  const { setHeaderScrolled } = useStore();
 
   useEffect(() => {
     const sequence = async () => {
@@ -52,6 +45,11 @@ const Hero = () => {
 
     sequence();
   }, [animate]);
+
+  useEffect(() => {
+    setHeaderScrolled(!isInView);
+  }, [isInView]);
+
   return (
     <article
       className="grid grid-cols-1 grid-rows-1 aspect-[2.3518637238] snap-start"

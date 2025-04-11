@@ -87,6 +87,10 @@ const VideoPlayer = ({ video }) => {
       <div
         className="player w-full grid grid-cols-1 grid-rows-1 col-start-1 row-start-1 z-10 relative"
         ref={div}
+        style={{
+          viewTransitionName: `transition-${current}`,
+          viewTransitionClass: "thumbnail",
+        }}
       >
         <div className="aspect-[2.3518637238] w-full h-full row-start-1 col-start-1 flex items-center justify-center">
           <m.video
