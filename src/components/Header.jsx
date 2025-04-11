@@ -6,14 +6,15 @@ import { useEffect, useState } from "react";
 import { useStore } from "@/state/store";
 
 const Header = () => {
-  const { show, setShow } = useStore();
+  const { show, setShow, setHeaderScrolled } = useStore();
   const pathname = usePathname();
 
   useEffect(() => {
     let timer;
+
+    // Disable UI on project pages
     if (pathname.includes("projects")) {
       timer = setTimeout(() => {
-        console.log("timed out");
         setShow(false);
       }, 1000);
 

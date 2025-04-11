@@ -11,4 +11,6 @@ export const useStore = create((set) => ({
   setScroll: (value) => set({ scrollPosition: value }),
   autoPlay: false,
   setAutoPlay: (value) => set({ autoPlay: value }),
+  headerScrolled: false,
+  setHeaderScrolled: (value) => set({ headerScrolled: value }),
 }));
