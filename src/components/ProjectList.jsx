@@ -58,15 +58,15 @@ const ProjectList = ({ posts, arr }) => {
       } relative z-0  snap-mandatory snap-y`}
     >
       <AP>
-        {/* {!isTopView ? (
+        {!isTopView ? (
           <BlurOverlay classes="-scale-y-100 !top-0 bottom-auto inverse" />
-        ) : null} */}
+        ) : null}
       </AP>
 
       {arr.map((el, i) => (
         <Project item={posts[0]} key={i} index={i} autoPlay={true} />
       ))}
-      {/* <AP>{!isBottomView ? <BlurOverlay /> : null}</AP> */}
+      <AP>{!isBottomView ? <BlurOverlay /> : null}</AP>
     </ul>
   );
 };

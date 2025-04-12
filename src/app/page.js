@@ -17,7 +17,7 @@ export default async function Home() {
   const posts = await client.fetch(POSTS_QUERY, {}, options);
 
   return (
-    <main className="h-screen snap-y snap-mandatory snap-start overflow-y-scroll">
+    <main className="snap-start contents">
       <Hero />
       <ProjectList posts={posts} arr={arr} />
       <ViewButton />
