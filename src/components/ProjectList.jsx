@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { motion as m, AnimatePresence as AP } from "motion/react";
 import { useDebouncedCallback, sub } from "use-debounce";
 import { useStore } from "@/state/store";
-import BlurOverlay from "./BlurOverlay";
+import BlurOverlay from "@/components/BlurOverlay";
+import ViewButton from "@/components/ViewButton";
 import { usePathname } from "next/navigation";
 
 const ProjectList = ({ posts, arr }) => {
@@ -55,7 +56,7 @@ const ProjectList = ({ posts, arr }) => {
     <ul
       className={`${
         viewMode == "grid" ? "grid grid-cols-2 p-1 gap-1" : "flex flex-col"
-      } relative z-0  snap-mandatory snap-y`}
+      } relative z-0  snap-mandatory snap-y relative`}
     >
       <AP>
         {!isTopView ? (
@@ -67,6 +68,7 @@ const ProjectList = ({ posts, arr }) => {
         <Project item={posts[0]} key={i} index={i} autoPlay={true} />
       ))}
       <AP>{!isBottomView ? <BlurOverlay /> : null}</AP>
+      <ViewButton />
     </ul>
   );
 };

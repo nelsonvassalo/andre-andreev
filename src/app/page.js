@@ -20,7 +20,6 @@ export default async function Home() {
     <main className="snap-start">
       <Hero />
       <ProjectList posts={posts} arr={arr} />
-      <ViewButton />
     </main>
   );
 }

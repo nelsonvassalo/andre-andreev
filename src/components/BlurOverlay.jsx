@@ -8,10 +8,6 @@ const BlurOverlay = ({ classes }) => (
     animate={{ y: "0%" }}
     exit={{ y: "100%" }}
     key={"bottom"}
-    style={{
-      viewTransitionName: `blur-${Math.random()}`,
-      viewTransitionClass: "null",
-    }}
   >
     <div></div>
     <div></div>
