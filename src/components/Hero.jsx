@@ -221,7 +221,7 @@ const Hero = () => {
         className="row-start-1 col-start-1 aspect-[2.3518637238] w-full relative [&_iframe]:w-full"
         ref={container}
         initial={{ scale: 0.1, transformOrigin: "bottom center", opacity: 0 }}
-        animate={{ scale: loaded ? 1 : 0.5, opacity: 1 }}
+        animate={{ scale: loaded ? 1 : 0.7, opacity: 1 }}
         transition={{ duration: 3, ease: "circInOut" }}
       ></m.div>
     </article>
