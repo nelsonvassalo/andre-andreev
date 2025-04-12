@@ -1,10 +1,14 @@
 "use client";
 import { motion as m, useAnimate, stagger, useInView } from "motion/react";
-import { useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useStore } from "@/state/store";
+import Player from "@vimeo/player";
 
 const Hero = () => {
   const [scope, animate] = useAnimate();
+  const player = useRef(null);
+  const container = useRef(null);
+  const [loaded, setLoaded] = useState(false);
   const isInView = useInView(scope, { amount: "all" });
   const { setHeaderScrolled } = useStore();
 
@@ -49,6 +53,29 @@ const Hero = () => {
   useEffect(() => {
     setHeaderScrolled(!isInView);
   }, [isInView]);
+
+  useEffect(() => {
+    const defaultOptions = {
+      id: 185412081,
+      width: window.innerWidth,
+      height: window.innerWidth / 2.3518637238,
+      controls: false, // Hide UI controls
+      loop: false,
+      autoplay: true,
+      background: true,
+      title: false, // Hide title
+      byline: false, // Hide author byline
+      portrait: false,
+    };
+
+    // Initialize the Vimeo Player
+    player.current = new Player(container.current, defaultOptions);
+
+    player.current.ready().then(() => {
+      player.current.play();
+      setLoaded(true);
+    });
+  }, []);
 
   return (
     <article
@@ -190,24 +217,13 @@ const Hero = () => {
           </div>
         </div>
       </div>
-      <div className="row-start-1 col-start-1 aspect-[2.3518637238] w-full relative">
-        <iframe
-          src="https://player.vimeo.com/video/185412081?background=1&autoplay=1&muted=1&loop=1&controls=0&title=0&byline=0&portrait=0&app_id=58479"
-          frameBorder="0"
-          autoPlay
-          allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
-          // style="position:absolute;top:0;left:0;width:100%;height:100%;"
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-          }}
-          title="Quadro Escuro 3"
-        ></iframe>
-      </div>
-      <script src="https://player.vimeo.com/api/player.js"></script>
+      <m.div
+        className="row-start-1 col-start-1 aspect-[2.3518637238] w-full relative [&_iframe]:w-full"
+        ref={container}
+        initial={{ scale: 0.1, transformOrigin: "bottom center", opacity: 0 }}
+        animate={{ scale: loaded ? 1 : 0.5, opacity: 1 }}
+        transition={{ duration: 3, ease: "circInOut" }}
+      ></m.div>
     </article>
   );
 };
