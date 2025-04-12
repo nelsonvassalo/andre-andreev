@@ -17,7 +17,7 @@ export default async function Home() {
   const posts = await client.fetch(POSTS_QUERY, {}, options);
 
   return (
-    <main className="snap-start contents">
+    <main className="snap-start">
       <Hero />
       <ProjectList posts={posts} arr={arr} />
       <ViewButton />

@@ -10,7 +10,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="snap-y snap-mandatory flex flex-col">
+    <html lang="en" className="snap-y snap-mandatory">
       <body className={`antialiased bg-black contents`}>
         <ViewTransitions>
           <Header />
