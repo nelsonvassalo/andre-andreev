@@ -10,6 +10,7 @@
     "clean": "next clean --all"
   },
   "dependencies": {
+    "@portabletext/react": "^3.2.1",
     "@react-three/fiber": "^8.17.14",
     "@react-three/postprocessing": "^2.19.1",
     "@vimeo/player": "^2.26.0",

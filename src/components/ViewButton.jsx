@@ -1,13 +1,8 @@
 "use client";
 import { useStore } from "@/state/store";
-import { useEffect } from "react";
 
 const ViewButton = () => {
-  const { viewMode, setViewMode, current } = useStore();
-
-  useEffect(() => {
-    console.log({ viewMode });
-  }, [viewMode]);
+  const { viewMode, setViewMode } = useStore();
 
   const handleClick = async () => {
     const transition = document.startViewTransition(() => {

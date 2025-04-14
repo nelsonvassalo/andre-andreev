@@ -4,13 +4,17 @@ import { useEffect, useState, useRef } from "react";
 import { useStore } from "@/state/store";
 import Player from "@vimeo/player";
 
-const Hero = () => {
+const Hero = ({ vimeoURL }) => {
   const [scope, animate] = useAnimate();
   const player = useRef(null);
   const container = useRef(null);
   const [loaded, setLoaded] = useState(false);
   const isInView = useInView(scope, { amount: "all" });
   const { setHeaderScrolled } = useStore();
+  const [initialAnimationComplete, setInitialAnimationComplete] =
+    useState(false);
+  const [containerAnimationComplete, setContainerAnimationComplete] =
+    useState(false);
 
   useEffect(() => {
     const sequence = async () => {
@@ -27,28 +31,42 @@ const Hero = () => {
         { duration: 2, delay: 0.25 }
       );
 
-      animate(
-        ".en path",
-        { y: "-100%", opacity: 0, filter: "blur(12px)" },
-        {
-          delay: stagger(0.1, { startDelay: 1 }),
-          duration: 3,
-          ease: "circOut",
-        }
-      );
-      animate(
-        ".bg path",
-        { y: 0, opacity: 1, filter: "blur(0px)" },
-        {
-          delay: stagger(0.1),
-          duration: 2,
-          ease: "circInOut",
-        }
-      );
+      // Mark the initial animation as complete
+      setInitialAnimationComplete(true);
     };
 
     sequence();
   }, [animate]);
+
+  useEffect(() => {
+    // Only run the final animation when both conditions are met
+    if (initialAnimationComplete && containerAnimationComplete) {
+      console.log("CONTAINER ANIM IS COMPLETE");
+      const finalSequence = async () => {
+        animate(
+          ".en path",
+          { y: "-100%", opacity: 0, filter: "blur(12px)" },
+          {
+            delay: stagger(0.1, { startDelay: 1 }),
+            duration: 3,
+            ease: "circOut",
+          }
+        );
+
+        animate(
+          ".bg path",
+          { y: 0, opacity: 1, filter: "blur(0px)" },
+          {
+            delay: stagger(0.1),
+            duration: 2,
+            ease: "circInOut",
+          }
+        );
+      };
+
+      finalSequence();
+    }
+  }, [initialAnimationComplete, containerAnimationComplete, animate]);
 
   useEffect(() => {
     setHeaderScrolled(!isInView);
@@ -56,7 +74,7 @@ const Hero = () => {
 
   useEffect(() => {
     const defaultOptions = {
-      id: 185412081,
+      id: vimeoURL.split("/").pop(),
       width: window.innerWidth,
       height: window.innerWidth / 2.3518637238,
       controls: false, // Hide UI controls
@@ -218,11 +236,21 @@ const Hero = () => {
         </div>
       </div>
       <m.div
-        className="row-start-1 col-start-1 aspect-[2.3518637238] w-full relative [&_iframe]:w-full"
+        className="row-start-1 col-start-1 aspect-[2.3518637238] w-full relative [&_iframe]:w-full [&_iframe]:h-full"
         ref={container}
         initial={{ scale: 0.1, transformOrigin: "bottom center", opacity: 0 }}
         animate={{ scale: loaded ? 1 : 0.7, opacity: 1 }}
         transition={{ duration: 3, ease: "circInOut" }}
+        onAnimationComplete={({ opacity }) => {
+          console.log({ opacity });
+          if (container && opacity === 1) {
+            setContainerAnimationComplete(true);
+            container.current.style.removeProperty("transform");
+            container.current.style.removeProperty("opacity");
+            container.current.style.removeProperty("filter");
+            container.current.style.removeProperty("transform-origin");
+          }
+        }}
       ></m.div>
     </article>
   );

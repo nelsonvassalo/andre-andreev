@@ -54,7 +54,7 @@ const Project = ({ item, index }) => {
         prefetch={true}
         onClick={handleNavigation}
       >
-        <div className="col-start-1 row-start-1 top-0 w-full h-full z-10 flex items-center justify-center tracking-[0.15em] !font-[100] font-2xl uppercase">
+        <div className="col-start-1 row-start-1 top-0 w-full h-full z-10 flex items-center justify-center tracking-[0.15em] !font-[100] uppercase">
           <m.h2
             className="text-4xl text-white flex flex-wrap"
             variants={{
