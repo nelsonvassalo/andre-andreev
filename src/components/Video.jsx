@@ -4,11 +4,24 @@ import { useEffect, useRef } from "react";
 
 const Video = ({ src, isInView }) => {
   const videoRef = useRef(null);
+  const { viewMode } = useStore();
 
   useEffect(() => {
     const videoElement = videoRef.current;
 
+    const play = () => {
+      console.log("play");
+      if (viewMode === "grid" && videoRef) videoElement.play();
+    };
+
+    const pause = () => {
+      if (viewMode === "grid" && videoRef) videoElement.pause();
+    };
+
     if (videoElement) {
+      videoElement.addEventListener("mouseenter", play);
+      videoElement.addEventListener("mouseleave", pause);
+
       // Pre-set dimensions and aspect ratio to prevent layout shifts
       videoElement.style.aspectRatio = "2.3518637238/1";
 
@@ -17,13 +30,15 @@ const Video = ({ src, isInView }) => {
         // Only reset time when coming into view
         videoElement.currentTime = 0;
 
-        // Use play() Promise with error handling
-        const playPromise = videoElement.play();
+        let playPromise;
+        if (viewMode === "list") {
+          playPromise = videoElement.play();
 
-        if (playPromise !== undefined) {
-          playPromise.catch((error) => {
-            console.error("Video playback error:", error);
-          });
+          if (playPromise !== undefined) {
+            playPromise.catch((error) => {
+              console.error("Video playback error:", error);
+            });
+          }
         }
       } else {
         // Pause if not in view
@@ -39,7 +54,7 @@ const Video = ({ src, isInView }) => {
         videoElement.pause();
       }
     };
-  }, [isInView]);
+  }, [isInView, viewMode, videoRef]);
 
   return (
     <video

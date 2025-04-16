@@ -13,8 +13,9 @@ const ProjectList = ({ posts, arr }) => {
   // 2,3518637238
 
   const [isTopView, setIsTopView] = useState(true);
+  const [blurHeight, setBlurHeight] = useState(0);
   const [isBottomView, setIsBottomView] = useState(false);
-  const { viewMode, setCurrent, scrollPosition } = useStore();
+  const { viewMode, setCurrent } = useStore();
 
   const onScroll = (e) => {
     const { scrollY } = window;
@@ -32,10 +33,7 @@ const ProjectList = ({ posts, arr }) => {
     let vH = window.innerHeight;
     const h = vW / RATIO;
     const blurHeight = (vH - h) / 2;
-    const blurEls = document.querySelectorAll(".gradient-blur");
-    blurEls.forEach((el) => {
-      el.style.height = `${blurHeight}px`;
-    });
+    setBlurHeight(blurHeight);
   };
 
   // This effect sets the CSS variable --vh to the viewport height in pixel
@@ -54,20 +52,29 @@ const ProjectList = ({ posts, arr }) => {
 
   return (
     <ul
+      id="projects"
       className={`${
         viewMode == "grid" ? "grid grid-cols-2 p-1 gap-1" : "flex flex-col"
-      } relative z-0  snap-mandatory snap-y relative`}
+      } z-0  snap-mandatory snap-y relative`}
     >
       <AP>
         {!isTopView ? (
-          <BlurOverlay classes="-scale-y-100 !top-0 bottom-auto inverse" />
+          <BlurOverlay
+            classes="-scale-y-100 !top-0 bottom-auto inverse"
+            height={blurHeight}
+            _key="top"
+          />
         ) : null}
       </AP>
 
       {arr.map((el, i) => (
         <Project item={posts[0]} key={i} index={i} autoPlay={true} />
       ))}
-      <AP>{!isBottomView ? <BlurOverlay /> : null}</AP>
+      <AP>
+        {!isBottomView ? (
+          <BlurOverlay _key="bottom" height={blurHeight} />
+        ) : null}
+      </AP>
       <ViewButton />
     </ul>
   );

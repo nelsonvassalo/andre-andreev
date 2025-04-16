@@ -12,11 +12,12 @@ const ViewButton = () => {
 
   return (
     <button
-      className="mt-40 flex items-center gap-2 text-[13px] px-4 py-2 z-[100] left-1/2 -translate-x-1/2 sticky font-[100] tracking-[0.13em] uppercase text-white bottom-16 bg-[rgba(217,217,217,0.1)] border-[0.5px] border-white/10  rounded-[13px] backdrop-blur-[56px] hover:border-white/30 transition-colors hover:font-[300] hover:tracking-[0.12em] w-fit"
+      className="mt-40 flex items-center gap-2 text-[0.9375em] px-4 py-2 z-[9999] left-1/2 -translate-x-1/2 sticky font-[100] tracking-[0.25em] uppercase text-white bottom-12 transition-colors hover:font-[300] hover:tracking-[0.23em] w-fit"
       onClick={handleClick}
       style={{ viewTransitionClass: "null", viewTransitionName: "btn" }}
     >
-      View as {viewMode == "list" ? "Grid " : "List "}
+      View as {viewMode == "list" ? "Grid " : "List "} / Преглед като{" "}
+      {viewMode == "list" ? "Pешетка" : "Cписък"}
       {viewMode == "list" ? (
         <svg
           width="15"
@@ -44,7 +45,7 @@ const ViewButton = () => {
           <rect y="2" width="15" height="6" fill="white" />
           <rect y="9" width="15" height="1" fill="white" />
         </svg>
-      )}
+      )}{" "}
     </button>
   );
 };

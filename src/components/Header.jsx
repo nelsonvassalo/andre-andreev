@@ -14,6 +14,8 @@ const Header = () => {
   useEffect(() => {
     let timer;
 
+    console.log({ pathname });
+
     // Disable UI on project pages
     if (pathname.includes("projects")) {
       timer = setTimeout(() => {
@@ -65,27 +67,47 @@ const Header = () => {
   return (
     <m.header animate={{ opacity: show ? 1 : 0 }} ref={header}>
       <nav
-        className="fixed top-0 w-full text-white uppercase font-[100] tracking-[0.13em] text-[.8125rem] z-20"
+        className="fixed top-0 w-full text-white uppercase font-[100] tracking-[0.25em] text-[0.9375em] z-20"
         style={{ viewTransitionName: "nav-top", viewTransitionClass: "null" }}
       >
         <ul className="flex justify-between w-full p-4">
           <li className="w-1/3">
-            <Link href="/" className="transition-all">
+            <Link
+              href="/#projects"
+              className={`transition-all${pathname === "/" ? " active" : ""}`}
+            >
               Projects
             </Link>
           </li>
           <m.li
-            className="tracking-[0.15em] text-center"
+            className="tracking-[0.22em] text-center"
             initial={{ y: "-100%", opacity: 0 }}
             animate={{
               y: headerScrolled ? 0 : "-100%",
               opacity: headerScrolled ? 1 : 0,
             }}
           >
-            Andre Андреев
+            <Link
+              href="/"
+              className="transition-all"
+              onClick={(e) => {
+                if (pathname === "/") {
+                  e.preventDefault();
+
+                  window.scroll(0, 0, { behavior: "smooth" });
+                }
+              }}
+            >
+              Andre Андреев
+            </Link>
           </m.li>
           <li className="w-1/3 text-right">
-            <Link href="/info" className="transition-all">
+            <Link
+              href="/info"
+              className={`transition-all${
+                pathname === "/info" ? " active" : ""
+              }`}
+            >
               Info
             </Link>
           </li>
@@ -93,7 +115,7 @@ const Header = () => {
       </nav>
 
       <nav
-        className="fixed bottom-0 w-full text-white uppercase font-[100] tracking-[0.13em] text-[.8125rem] z-20"
+        className="fixed bottom-0 w-full text-white uppercase font-[100] tracking-[0.25em] text-[0.9375em] z-20"
         style={{
           viewTransitionName: "nav-bottom",
           viewTransitionClass: "null",
@@ -101,22 +123,21 @@ const Header = () => {
       >
         <ul className="flex justify-between w-full p-4">
           <li className="w-1/3">
-            <Link href="/" className="transition-all">
+            <Link
+              href="/#projects"
+              className={`transition-all${pathname === "/" ? " active" : ""}`}
+            >
               Проекти
             </Link>
           </li>
-          <m.li
-            className="tracking-[0.15em] text-center w-1/3"
-            initial={{ y: "100%" }}
-            animate={{
-              y: headerScrolled ? 0 : "100%",
-              opacity: headerScrolled ? 1 : 0,
-            }}
-          >
-            Andre Андреев
-          </m.li>
+
           <li className="w-1/3 text-right">
-            <Link href="info" className="transition-all">
+            <Link
+              href="info"
+              className={`transition-all${
+                pathname === "/info" ? " active" : ""
+              }`}
+            >
               Инфо
             </Link>
           </li>

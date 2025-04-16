@@ -5,11 +5,9 @@ import Video from "@/components/Video";
 import { useStore } from "@/state/store";
 import { useInView } from "motion/react";
 import { motion as m } from "framer-motion";
-import { useTransitionRouter } from "next-view-transitions";
 import { useViewTransitionWithScroll } from "@/hooks/useViewTransitionWithScroll";
 
 const Project = ({ item, index }) => {
-  const router = useTransitionRouter();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: false, amount: "all" });
   const { setCurrent, scrollPosition, setAutoPlay } = useStore();
@@ -54,7 +52,7 @@ const Project = ({ item, index }) => {
         prefetch={true}
         onClick={handleNavigation}
       >
-        <div className="col-start-1 row-start-1 top-0 w-full h-full z-10 flex items-center justify-center tracking-[0.15em] !font-[100] uppercase">
+        <div className="col-start-1 row-start-1 top-0 w-full h-full z-10 flex items-center justify-center tracking-[0.22em] !font-[100] uppercase pointer-events-none">
           <m.h2
             className="text-4xl text-white flex flex-wrap"
             variants={{

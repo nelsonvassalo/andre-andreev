@@ -101,8 +101,8 @@ const VideoPlayer = ({ video }) => {
             autoPlay
             preload="auto"
             src={video.loop.asset.url}
-            className="w-full h-full"
-            animate={{ opacity: isLoaded ? 0 : 1 }}
+            className="w-full"
+            // animate={{ opacity: isLoaded ? 0 : 1 }}
             transition={{ delay: 1, duration: 0.75 }}
           />
         </div>
@@ -114,7 +114,7 @@ const VideoPlayer = ({ video }) => {
           transition={{ duration: 1.5, delay: 1, ease: "easeInOut" }}
         ></m.div>
 
-        <div className="row-start-1 col-start-1 w-full h-full flex items-center justify-center z-10 ">
+        <div className="row-start-1 col-start-1 w-full flex items-center justify-center z-10 ">
           {isLoaded ? (
             <m.button
               onClick={togglePlay}
@@ -179,8 +179,7 @@ const VideoPlayer = ({ video }) => {
 
       <m.div animate={{ opacity: show ? 1 : 0 }}>
         <a
-          className="px-4 py-2 z-20 left-1/2 -translate-x-1/2 fixed flex items-center gap-2 text-[13px] font-[100] tracking-[0.13em] uppercase text-white bottom-16 bg-[rgba(217,217,217,0.1)] border-[0.5px] border-white/10  rounded-[13px] backdrop-blur-[56px] hover:border-white/30 transition-colors hover:font-[300] hover:tracking-[0.12em] cursor-pointer"
-          // href="/#item-4"
+          className="px-4 py-2 z-20 left-1/2 -translate-x-1/2 fixed flex items-center gap-2 text-[0.9375em] font-[100] tracking-[0.25em] uppercase text-white bottom-12  hover:font-[300] hover:tracking-[0.23em] cursor-pointer group"
           onClick={handleClick}
         >
           <svg
@@ -188,17 +187,17 @@ const VideoPlayer = ({ video }) => {
             height="14"
             viewBox="0 0 8 14"
             fill="none"
-            animate={{ opacity: show ? 1 : 0 }}
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M7 1L1 7L7 13"
               stroke="white"
+              className="group-hover:stroke-[1px]"
               strokeWidth="0.5"
               strokeLinecap="round"
             />
           </svg>{" "}
-          Back to Listing
+          Back to Listing / обратно към списъка
         </a>
       </m.div>
     </>

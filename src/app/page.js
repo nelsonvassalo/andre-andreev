@@ -20,7 +20,7 @@ export default async function Home() {
 
   return (
     <main className="snap-start">
-      <Hero vimeoURL={homepage?.vimeoUrl} />
+      <Hero vimeoURLs={homepage?.vimeoUrl} />
       <ProjectList posts={posts} arr={arr} />
     </main>
   );

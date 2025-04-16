@@ -7,12 +7,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "clean": "next clean --all"
+    "clean": "next clean"
   },
   "dependencies": {
     "@portabletext/react": "^3.2.1",
     "@react-three/fiber": "^8.17.14",
     "@react-three/postprocessing": "^2.19.1",
+    "@slightlyoff/lite-vimeo": "^0.1.2",
     "@vimeo/player": "^2.26.0",
     "html2canvas": "^1.4.1",
     "motion": "^12.6.3",

@@ -18,10 +18,10 @@ export default async function InfoPage() {
     <>
       <div className="prose prose-sm md:prose-base lg:prose-lg z-10 relative flex items-center min-h-screen py-40">
         <div className="mx-auto flex flex-col items-center">
-          {/* <h1 className="tracking-[0.15em] !font-[100] uppercase text-white text-[2.5rem] mb-4">
+          {/* <h1 className="tracking-[0.22em] !font-[100] uppercase text-white text-[2.5rem] mb-4">
             {page.EN_title} / {page.BG_title}
           </h1> */}
-          <div className="flex flex-col gap-10 text-white font-thin text-[1.375rem] tracking-[0.01em] leading-[1.54] mx-auto px-4 max-w-4xl [&_p]:text-pretty">
+          <div className="flex flex-col gap-10 text-white font-thin text-[1.54rem] tracking-[0.01em] leading-[1.54] mx-auto px-4 max-w-5xl [&_p]:text-pretty text-center">
             <div>
               <PortableText value={page.bio_en} className="text-white" />
             </div>

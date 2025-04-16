@@ -4,17 +4,13 @@ import { useEffect, useState, useRef } from "react";
 import { useStore } from "@/state/store";
 import Player from "@vimeo/player";
 
-const Hero = ({ vimeoURL }) => {
+const Hero = ({ vimeoURLs }) => {
   const [scope, animate] = useAnimate();
   const player = useRef(null);
   const container = useRef(null);
   const [loaded, setLoaded] = useState(false);
   const isInView = useInView(scope, { amount: "all" });
   const { setHeaderScrolled } = useStore();
-  const [initialAnimationComplete, setInitialAnimationComplete] =
-    useState(false);
-  const [containerAnimationComplete, setContainerAnimationComplete] =
-    useState(false);
 
   useEffect(() => {
     const sequence = async () => {
@@ -30,81 +26,50 @@ const Hero = ({ vimeoURL }) => {
         { filter: "blur(0px)", y: 0, scale: 1 },
         { duration: 2, delay: 0.25 }
       );
-
-      // Mark the initial animation as complete
-      setInitialAnimationComplete(true);
     };
 
     sequence();
   }, [animate]);
 
   useEffect(() => {
-    // Only run the final animation when both conditions are met
-    if (initialAnimationComplete && containerAnimationComplete) {
-      console.log("CONTAINER ANIM IS COMPLETE");
-      const finalSequence = async () => {
-        animate(
-          ".en path",
-          { y: "-100%", opacity: 0, filter: "blur(12px)" },
-          {
-            delay: stagger(0.1, { startDelay: 1 }),
-            duration: 3,
-            ease: "circOut",
-          }
-        );
-
-        animate(
-          ".bg path",
-          { y: 0, opacity: 1, filter: "blur(0px)" },
-          {
-            delay: stagger(0.1),
-            duration: 2,
-            ease: "circInOut",
-          }
-        );
-      };
-
-      finalSequence();
-    }
-  }, [initialAnimationComplete, containerAnimationComplete, animate]);
-
-  useEffect(() => {
     setHeaderScrolled(!isInView);
   }, [isInView]);
 
   useEffect(() => {
-    const defaultOptions = {
-      id: vimeoURL.split("/").pop(),
-      width: window.innerWidth,
-      height: window.innerWidth / 2.3518637238,
-      controls: false, // Hide UI controls
-      loop: false,
-      autoplay: true,
-      background: true,
-      title: false, // Hide title
-      byline: false, // Hide author byline
-      portrait: false,
-    };
+    const vimeoURL = vimeoURLs[Math.floor(Math.random() * vimeoURLs.length)];
 
-    // Initialize the Vimeo Player
-    player.current = new Player(container.current, defaultOptions);
+    // const defaultOptions = {
+    //   id: vimeoURL.split("/").pop(),
+    //   width: window.innerWidth,
+    //   height: "100%",
+    //   controls: false, // Hide UI controls
+    //   loop: false,
+    //   autoplay: true,
+    //   background: true,
+    //   title: false, // Hide title
+    //   byline: false, // Hide author byline
+    //   portrait: false,
+    // };
 
-    player.current.ready().then(() => {
-      player.current.play();
-      setLoaded(true);
-    });
+    // // Initialize the Vimeo Player
+    // player.current = new Player(container.current, defaultOptions);
+    if (player.current) {
+      console.log({ player });
+      // player.current.ready().then(() => {
+      player.current.addEventListener("canplay", () => {
+        // player.current.play();
+        setLoaded(true);
+      });
+    }
   }, []);
 
   return (
     <article
-      className="grid grid-cols-1 grid-rows-1 aspect-[2.3518637238] snap-start"
+      className="vimeo-container grid grid-cols-1 grid-rows-1 h-screen w-full snap-start"
       ref={scope}
     >
       <div className="col-start-1 row-start-1 flex items-center justify-center w-full h-full z-10 gap-8">
-        <div
-          className="firstname scale-[1.5] blur-[64px] translate-y-[20px]"
-          initial="initial"
-        >
+        <div className="firstname scale-[1.5] blur-[64px]">
           <svg
             width="319"
             height="65"
@@ -135,57 +100,10 @@ const Hero = ({ vimeoURL }) => {
           </svg>
         </div>
         <div
-          className="surname relative scale-[1.5] blur-[64px] translate-y-[20px]"
+          className="surname relative scale-[1.5] blur-[64px]"
           initial="initial"
         >
-          <div className="en blur-0">
-            <svg
-              width="442"
-              height="65"
-              viewBox="0 0 442 65"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="overflow-visible"
-            >
-              <m.path
-                d="M0.592529 63.73C4.73253 62.74 7.4325 59.41 10.2225 51.49L27.2325 3.24999C28.4025 2.16999 29.7525 1.17999 30.7425 0.0999908H31.1025L49.6425 52.48C51.3525 57.25 53.6025 62.83 58.7325 63.73V64H40.7325V63.73C44.6025 63.01 46.0425 60.85 46.0425 57.97C46.0425 56.35 45.5925 54.64 44.9625 52.75L40.3725 39.79H15.5325L11.4825 51.22C10.7625 53.38 10.3125 55.36 10.3125 57.25C10.3125 60.4 11.7525 62.83 15.3525 63.73V64H0.592529V63.73ZM15.8925 38.8H40.0125L28.0425 5.04999H27.7725L15.8925 38.8Z"
-                fill="white"
-                initial={{ opacity: 1, y: 0 }}
-              />
-              <m.path
-                d="M67.3015 64V63.73C72.2515 62.83 73.8715 60.13 73.8715 53.2V11.8C73.8715 4.86999 72.2515 2.16998 67.3015 1.26999V0.999985H75.2215L117.612 55.99H117.882V11.8C117.882 4.86999 116.261 2.16998 111.311 1.26999V0.999985H125.531V1.26999C120.581 2.16998 118.962 4.86999 118.962 11.8V64.9H118.691L75.2215 8.46999H74.9515V53.2C74.9515 60.13 76.5715 62.83 81.5215 63.73V64H67.3015Z"
-                fill="white"
-                initial={{ opacity: 1, y: 0 }}
-              />
-              <m.path
-                d="M164.487 64H140.367V63.73C145.317 62.83 146.937 60.13 146.937 53.2V11.8C146.937 4.86999 145.317 2.16999 140.367 1.26999V0.99999H148.197C153.687 0.99999 158.277 0.459991 164.487 0.459991C183.387 0.459991 196.707 12.43 196.707 30.88C196.707 50.5 184.107 64 164.487 64ZM151.437 52.75C151.437 60.94 154.317 63.1 164.667 63.1C181.497 63.1 191.127 50.77 191.127 32.5C191.127 13.96 181.047 1.35999 163.587 1.35999C153.867 1.35999 151.437 5.04999 151.437 11.8V52.75Z"
-                fill="white"
-                initial={{ opacity: 1, y: 0 }}
-              />
-              <m.path
-                d="M260.594 64.81C251.774 64.81 247.994 57.43 237.464 42.31L229.994 31.6C231.974 31.78 233.504 31.87 234.404 31.87C245.474 31.87 251.234 26.56 251.234 16.3C251.234 6.84999 245.474 1.35999 235.484 1.35999C228.014 1.35999 223.964 3.24999 223.964 10.99V53.2C223.964 60.13 225.584 62.83 230.534 63.73V64H212.894V63.73C217.844 62.83 219.464 60.13 219.464 53.2V11.8C219.464 4.86999 217.844 2.16999 212.894 1.26999V0.99999H221.444C226.214 0.99999 230.084 0.459991 235.664 0.459991C248.984 0.459991 256.814 6.12999 256.814 15.67C256.814 26.11 248.354 32.86 234.674 32.86C233.504 32.86 232.424 32.77 231.974 32.68C232.964 34.03 234.944 34.66 236.474 34.66C236.834 34.66 237.464 34.57 237.644 34.57L241.424 40.15C252.134 55.9 257.534 63.55 263.114 63.55C264.104 63.55 265.454 63.46 266.264 63.19L266.444 63.73C264.374 64.45 262.394 64.81 260.594 64.81Z"
-                fill="white"
-                initial={{ opacity: 1, y: 0 }}
-              />
-              <m.path
-                d="M316.172 64H275.402V63.73C280.352 62.83 281.972 60.13 281.972 53.2V11.8C281.972 4.87 280.352 2.17 275.402 1.27V0.999996H296.912C300.962 0.999996 305.822 0.999995 312.932 0.279999L315.992 17.47H315.722C311.942 7.84 308.342 1.99 299.072 1.99H295.832C288.542 1.99 286.472 5.68 286.472 10.81V30.25H294.482C301.412 30.25 304.112 28.18 305.012 21.7H305.282V39.79H305.012C304.112 33.31 301.412 31.24 294.482 31.24H286.472V51.76C286.472 61.03 288.902 63.01 295.562 63.01H302.222C311.672 63.01 314.912 56.98 318.692 45.82H318.962L316.172 64Z"
-                fill="white"
-                initial={{ opacity: 1, y: 0 }}
-              />
-              <m.path
-                d="M373.23 64H332.461V63.73C337.411 62.83 339.03 60.13 339.03 53.2V11.8C339.03 4.87 337.411 2.17 332.461 1.27V0.999996H353.97C358.02 0.999996 362.88 0.999995 369.99 0.279999L373.05 17.47H372.781C369.001 7.84 365.4 1.99 356.13 1.99H352.891C345.601 1.99 343.53 5.68 343.53 10.81V30.25H351.54C358.47 30.25 361.17 28.18 362.07 21.7H362.341V39.79H362.07C361.17 33.31 358.47 31.24 351.54 31.24H343.53V51.76C343.53 61.03 345.96 63.01 352.62 63.01H359.28C368.73 63.01 371.97 56.98 375.75 45.82H376.021L373.23 64Z"
-                fill="white"
-                initial={{ opacity: 1, y: 0 }}
-              />
-              <m.path
-                d="M392.447 12.61C389.567 5.31999 388.127 2.34998 383.627 1.26999V0.999985H401.447V1.26999C397.667 1.80998 396.227 4.05999 396.227 7.02999C396.227 8.91998 396.767 11.08 397.667 13.33L414.587 56.98H414.857L430.067 14.05C430.967 11.44 431.507 9.00999 431.507 7.11999C431.507 3.78999 430.067 1.89998 426.467 1.26999V0.999985H441.047V1.26999C435.197 2.34998 433.217 8.28999 431.237 13.96L413.237 64.9H412.967L392.447 12.61Z"
-                fill="white"
-                initial={{ opacity: 1, y: 0 }}
-              />
-            </svg>
-          </div>
-
-          <div className="bg top-0 absolute">
+          <div className="bg  translate-y-[8px]">
             <svg
               width="428"
               height="82"
@@ -194,64 +112,62 @@ const Hero = ({ vimeoURL }) => {
               xmlns="http://www.w3.org/2000/svg"
               className="relative [&_path]:relative overflow-visible"
             >
-              <m.path
+              <path
                 d="M0.199951 63.73C4.33995 62.74 7.03995 59.41 9.82995 51.49L26.84 3.24998C28.01 2.16998 29.36 1.17998 30.35 0.0999756H30.71L49.25 52.48C50.96 57.25 53.21 62.83 58.34 63.73V64H40.34V63.73C44.21 63.01 45.65 60.85 45.65 57.97C45.65 56.35 45.2 54.64 44.57 52.75L39.98 39.79H15.14L11.09 51.22C10.37 53.38 9.91995 55.36 9.91995 57.25C9.91995 60.4 11.36 62.83 14.96 63.73V64H0.199951V63.73ZM15.5 38.8H39.62L27.65 5.04999H27.38L15.5 38.8Z"
                 fill="white"
-                initial={{ y: "100%", filter: "blur(12px)", opacity: 0 }}
               />
-              <m.path
+              <path
                 d="M111.099 64V63.73C116.049 62.83 117.669 60.13 117.669 53.2V32.05H78.4289V53.2C78.4289 60.13 80.0489 62.83 84.9989 63.73V64H67.3589V63.73C72.3089 62.83 73.9289 60.13 73.9289 53.2V11.8C73.9289 4.87001 72.3089 2.17 67.3589 1.27V1H84.9989V1.27C80.0489 2.17 78.4289 4.87001 78.4289 11.8V31.06H117.669V11.8C117.669 4.87001 116.049 2.17 111.099 1.27V1H128.739V1.27C123.789 2.17 122.169 4.87001 122.169 11.8V53.2C122.169 60.13 123.789 62.83 128.739 63.73V64H111.099Z"
                 fill="white"
-                initial={{ y: "100%", filter: "blur(12px)", opacity: 0 }}
               />
-              <m.path
+              <path
                 d="M138.617 63.73C150.047 62.29 151.487 56.8 152.927 40.69L155.627 11.08C156.167 5.14 154.637 2.26 149.777 1.27V1H193.337V1.27C188.387 2.17 186.767 4.87001 186.767 11.8V53.56C186.767 59.68 187.847 63.19 196.847 63.73V81.46H196.577C193.427 69.76 191.357 64 181.097 64H155.087C143.927 64 141.497 69.76 138.887 81.46H138.617V63.73ZM172.097 63.01C179.477 63.01 182.267 59.5 182.267 53.65V12.97C182.267 6.22 179.387 1.99001 172.997 1.99001H165.887C160.037 1.99001 157.247 5.32 156.707 11.17L154.007 40.78C152.747 54.19 151.127 60.13 145.457 63.01H172.097Z"
                 fill="white"
-                initial={{ y: "100%", filter: "blur(12px)", opacity: 0 }}
               />
-              <m.path
+              <path
                 d="M220.935 53.2C220.935 60.13 222.645 62.83 227.865 63.73V64H209.865V63.73C214.815 62.83 216.435 60.13 216.435 53.2V11.8C216.435 4.86999 214.815 2.16999 209.865 1.26999V0.999985H218.505C224.445 0.999985 226.695 0.549988 232.185 0.549988C247.305 0.549988 254.505 7.11998 254.505 16.57C254.505 28.18 243.165 35.29 227.775 35.29C225.435 35.29 223.185 35.29 220.935 35.2V53.2ZM220.935 33.58C223.005 34.12 225.795 34.39 228.045 34.39C242.355 34.39 248.925 27.91 248.925 17.56C248.925 7.29998 242.805 1.44998 231.555 1.44998C224.625 1.44998 220.935 4.32998 220.935 10.54V33.58Z"
                 fill="white"
-                initial={{ y: "100%", filter: "blur(12px)", opacity: 0 }}
               />
-              <m.path
+              <path
                 d="M308.309 64H267.539V63.73C272.489 62.83 274.109 60.13 274.109 53.2V11.8C274.109 4.87001 272.489 2.17 267.539 1.27V1H289.049C293.099 1 297.959 0.999995 305.069 0.279999L308.129 17.47H307.859C304.079 7.84 300.479 1.99001 291.209 1.99001H287.969C280.679 1.99001 278.609 5.68 278.609 10.81V30.25H286.619C293.549 30.25 296.249 28.18 297.149 21.7H297.419V39.79H297.149C296.249 33.31 293.549 31.24 286.619 31.24H278.609V51.76C278.609 61.03 281.039 63.01 287.699 63.01H294.359C303.809 63.01 307.049 56.98 310.829 45.82H311.099L308.309 64Z"
                 fill="white"
-                initial={{ y: "100%", filter: "blur(12px)", opacity: 0 }}
               />
-              <m.path
+              <path
                 d="M365.367 64H324.597V63.73C329.547 62.83 331.167 60.13 331.167 53.2V11.8C331.167 4.87001 329.547 2.17 324.597 1.27V1H346.107C350.157 1 355.017 0.999995 362.127 0.279999L365.187 17.47H364.917C361.137 7.84 357.537 1.99001 348.267 1.99001H345.027C337.737 1.99001 335.667 5.68 335.667 10.81V30.25H343.677C350.607 30.25 353.307 28.18 354.207 21.7H354.477V39.79H354.207C353.307 33.31 350.607 31.24 343.677 31.24H335.667V51.76C335.667 61.03 338.097 63.01 344.757 63.01H351.417C360.867 63.01 364.107 56.98 367.887 45.82H368.157L365.367 64Z"
                 fill="white"
-                className="translate-y-1/4"
-                initial={{ y: "100%", filter: "blur(12px)", opacity: 0 }}
               />
-              <m.path
+              <path
                 d="M405.326 64H381.656V63.73C386.606 62.83 388.226 60.13 388.226 53.2V11.8C388.226 4.86999 386.606 2.16999 381.656 1.26999V0.999985H389.216C393.446 0.999985 402.356 0.549988 404.156 0.549988C417.026 0.549988 424.496 6.57998 424.496 15.13C424.496 22.6 417.926 29.53 410.096 30.61V30.88C419.096 31.15 428.006 37 428.006 46.72C428.006 56.89 420.176 64 405.326 64ZM405.416 63.1C416.396 63.1 422.426 57.88 422.426 47.44C422.426 38.53 417.926 31.42 404.246 31.42H392.726V53.47C392.726 61.03 396.416 63.1 405.416 63.1ZM392.726 30.43H404.336C413.696 30.43 419.096 25.48 419.096 15.85C419.096 7.02998 414.506 1.44998 403.886 1.44998C395.246 1.44998 392.726 4.59998 392.726 10.99V30.43Z"
                 fill="white"
-                className=" translate-y-1/4"
-                initial={{ y: "100%", filter: "blur(12px)", opacity: 0 }}
               />
             </svg>
           </div>
         </div>
       </div>
       <m.div
-        className="row-start-1 col-start-1 aspect-[2.3518637238] w-full relative [&_iframe]:w-full [&_iframe]:h-full"
+        className="row-start-1 col-start-1  relative"
         ref={container}
         initial={{ scale: 0.1, transformOrigin: "bottom center", opacity: 0 }}
         animate={{ scale: loaded ? 1 : 0.7, opacity: 1 }}
         transition={{ duration: 3, ease: "circInOut" }}
         onAnimationComplete={({ opacity }) => {
-          console.log({ opacity });
           if (container && opacity === 1) {
-            setContainerAnimationComplete(true);
             container.current.style.removeProperty("transform");
             container.current.style.removeProperty("opacity");
             container.current.style.removeProperty("filter");
             container.current.style.removeProperty("transform-origin");
           }
         }}
-      ></m.div>
+      >
+        <video
+          src="/hero.mp4"
+          className="w-full h-full object-cover"
+          autoPlay
+          loop
+          muted
+          ref={player}
+        ></video>
+      </m.div>
     </article>
   );
 };
