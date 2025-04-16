@@ -9,6 +9,9 @@ const Hero = ({ vimeoURLs }) => {
   const player = useRef(null);
   const container = useRef(null);
   const [loaded, setLoaded] = useState(false);
+  const [vimeoURL] = useState(
+    vimeoURLs[Math.floor(Math.random() * vimeoURLs.length)]
+  );
   const isInView = useInView(scope, { amount: "all" });
   const { setHeaderScrolled } = useStore();
 
@@ -36,21 +39,6 @@ const Hero = ({ vimeoURLs }) => {
   }, [isInView]);
 
   useEffect(() => {
-    const vimeoURL = vimeoURLs[Math.floor(Math.random() * vimeoURLs.length)];
-
-    // const defaultOptions = {
-    //   id: vimeoURL.split("/").pop(),
-    //   width: window.innerWidth,
-    //   height: "100%",
-    //   controls: false, // Hide UI controls
-    //   loop: false,
-    //   autoplay: true,
-    //   background: true,
-    //   title: false, // Hide title
-    //   byline: false, // Hide author byline
-    //   portrait: false,
-    // };
-
     // // Initialize the Vimeo Player
     // player.current = new Player(container.current, defaultOptions);
     if (player.current) {
@@ -61,7 +49,7 @@ const Hero = ({ vimeoURLs }) => {
         setLoaded(true);
       });
     }
-  }, []);
+  }, [player]);
 
   return (
     <article
@@ -160,7 +148,7 @@ const Hero = ({ vimeoURLs }) => {
         }}
       >
         <video
-          src="/hero.mp4"
+          src={vimeoURL}
           className="w-full h-full object-cover"
           autoPlay
           loop
