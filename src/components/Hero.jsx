@@ -136,8 +136,8 @@ const Hero = ({ vimeoURLs }) => {
         className="row-start-1 col-start-1  relative"
         ref={container}
         initial={{ scale: 0.1, transformOrigin: "bottom center", opacity: 0 }}
-        animate={{ scale: loaded ? 1 : 0.7, opacity: 1 }}
-        transition={{ duration: 3, ease: "circInOut" }}
+        animate={{ scale: loaded ? 1 : 0.1, opacity: 1 }}
+        transition={{ duration: 1.5, ease: "circInOut" }}
         onAnimationComplete={({ opacity }) => {
           if (container && opacity === 1) {
             container.current.style.removeProperty("transform");

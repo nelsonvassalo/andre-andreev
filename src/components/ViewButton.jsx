@@ -5,6 +5,10 @@ const ViewButton = () => {
   const { viewMode, setViewMode } = useStore();
 
   const handleClick = async () => {
+    if (!document.startViewTransition) {
+      setViewMode(viewMode === "grid" ? "list" : "grid");
+      return;
+    }
     const transition = document.startViewTransition(() => {
       setViewMode(viewMode === "grid" ? "list" : "grid");
     });
