@@ -27,7 +27,7 @@ const ViewButton = () => {
 
   return (
     <button
-      className="mt-40 flex items-center gap-2 text-[0.9375em] px-4 py-2 z-[9999] left-1/2 -translate-x-1/2 sticky font-[100] tracking-[0.25em] uppercase text-white bottom-12 transition-colors hover:font-[300] hover:tracking-[0.23em] w-fit"
+      className="mt-40 flex items-center gap-2 text-[0.9375em] px-4 py-2 z-[9999] left-1/2 -translate-x-1/2 sticky font-[100] tracking-[0.25em] uppercase text-white bottom-12 transition-colors hover:font-[300] hover:tracking-[0.23em] w-fit h-fit"
       onClick={handleClick}
       style={{ viewTransitionClass: "null", viewTransitionName: "btn" }}
     >

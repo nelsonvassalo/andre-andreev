@@ -89,7 +89,7 @@ const Header = () => {
           >
             <Link
               href="/"
-              className="transition-all"
+              className="transition-all normal-case tracking-[0.05em] text-xl"
               onClick={(e) => {
                 if (pathname === "/") {
                   e.preventDefault();
