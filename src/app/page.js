@@ -6,7 +6,7 @@ import Hero from "@/components/Hero";
 const POSTS_QUERY = `*[
   _type == "project"
   && defined(slug.current)
-]|order(orderRank asc){_id, EN_title, BG_title, loop { asset->{ url } }, vimeo_url, slug, publishedAt}`;
+]|order(orderRank asc){_id, EN_title, BG_title, loop { asset->{ url } }, thumbnail { asset->{url} }, vimeo_url, slug, publishedAt}`;
 
 const HOMEPAGE_QUERY = `*[_type == "homePage"][0]{ vimeoUrl }`;
 

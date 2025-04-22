@@ -13,4 +13,6 @@ export const useStore = create((set) => ({
   setAutoPlay: (value) => set({ autoPlay: value }),
   headerScrolled: false,
   setHeaderScrolled: (value) => set({ headerScrolled: value }),
+  projects: [],
+  setProjects: (val) => set({ projects: val }),
 }));

@@ -9,6 +9,7 @@ import { useTransitionRouter } from "next-view-transitions";
 import { useViewTransitionWithScroll } from "@/hooks/useViewTransitionWithScroll";
 
 const Project = ({ item, index }) => {
+  console.log({ item });
   const router = useTransitionRouter();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: false, amount: "all" });
@@ -32,7 +33,6 @@ const Project = ({ item, index }) => {
       id={`${item.slug.current}`}
       style={{
         // Position is directly applied to ensure consistency
-        position: "relative",
         contain: "layout size style",
         viewTransitionClass: "thumbnail",
         viewTransitionName: item.slug.current,
@@ -86,7 +86,11 @@ const Project = ({ item, index }) => {
 
         {/* Video component with consistent dimensions */}
         <div className="col-start-1 row-start-1 w-full h-full">
-          <Video src={item.loop.asset.url} isInView={isInView} />
+          <Video
+            src={item.loop.asset.url}
+            isInView={isInView}
+            thumbnail={item.thumbnail?.asset.url}
+          />
         </div>
       </Link>
     </li>

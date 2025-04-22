@@ -1,8 +1,19 @@
 "use client";
 import { useStore } from "@/state/store";
+import { useEffect } from "react";
 
 const ViewButton = () => {
   const { viewMode, setViewMode } = useStore();
+
+  useEffect(() => {
+    const listElements = Array.from(document.querySelectorAll(".video-group"));
+
+    if (viewMode === "list") {
+      listElements.forEach((el) => {
+        el.classList.remove("hover");
+      });
+    }
+  }, [viewMode]);
 
   const handleClick = async () => {
     if (!document.startViewTransition) {
