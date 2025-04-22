@@ -55,7 +55,7 @@ const ProjectList = ({ posts, arr }) => {
       id="projects"
       className={`${
         viewMode == "grid" ? "grid grid-cols-2 p-1 gap-1" : "flex flex-col"
-      } z-0  snap-mandatory snap-y relative`}
+      } z-10  snap-mandatory snap-y relative`}
     >
       <AP>
         {!isTopView ? (

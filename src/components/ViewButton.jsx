@@ -27,38 +27,60 @@ const ViewButton = () => {
 
   return (
     <button
-      className="mt-40 flex items-center gap-2 text-[0.9375em] px-4 py-2 z-[9999] left-1/2 -translate-x-1/2 sticky font-[100] tracking-[0.25em] uppercase text-white bottom-12 transition-colors hover:font-[300] hover:tracking-[0.23em] w-fit h-fit"
+      className="mt-40 flex items-center gap-2 text-[0.9375em] px-4 py-2 z-[9999] left-1/2 -translate-x-1/2 sticky font-[100] tracking-[0.25em] uppercase text-white bottom-2 transition-colors hover:font-[300] hover:tracking-[0.23em] w-fit h-fit"
       onClick={handleClick}
       style={{ viewTransitionClass: "null", viewTransitionName: "btn" }}
     >
-      View as {viewMode == "list" ? "Grid " : "List "} / Преглед като{" "}
-      {viewMode == "list" ? "Pешетка" : "Cписък"}
       {viewMode == "list" ? (
         <svg
-          width="15"
-          height="11"
-          viewBox="0 0 15 11"
+          width="37"
+          height="25"
+          viewBox="0 0 37 25"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <rect width="7" height="3" fill="white" />
-          <rect x="8" width="7" height="3" fill="white" />
-          <rect y="4" width="7" height="3" fill="white" />
-          <rect x="8" y="4" width="7" height="3" fill="white" />
-          <rect y="8" width="7" height="3" fill="white" />
-          <rect x="8" y="8" width="7" height="3" fill="white" />
+          <rect y="0.351562" width="36.75" height="2.45" fill="white" />
+          <rect y="5.25195" width="36.75" height="14.7" fill="white" />
+          <rect y="22.4014" width="36.75" height="2.45" fill="white" />
         </svg>
       ) : (
         <svg
-          width="15"
-          height="10"
-          viewBox="0 0 15 10"
+          width="37"
+          height="27"
+          viewBox="0 0 37 27"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <rect width="15" height="1" fill="white" />
-          <rect y="2" width="15" height="6" fill="white" />
-          <rect y="9" width="15" height="1" fill="white" />
+          <rect
+            x="0.25"
+            y="0.0498047"
+            width="17.15"
+            height="7.35"
+            fill="white"
+          />
+          <rect
+            x="19.85"
+            y="0.0498047"
+            width="17.15"
+            height="7.35"
+            fill="white"
+          />
+          <rect x="0.25" y="9.84961" width="17.15" height="7.35" fill="white" />
+          <rect
+            x="19.85"
+            y="9.84961"
+            width="17.15"
+            height="7.35"
+            fill="white"
+          />
+          <rect x="0.25" y="19.6504" width="17.15" height="7.35" fill="white" />
+          <rect
+            x="19.85"
+            y="19.6504"
+            width="17.15"
+            height="7.35"
+            fill="white"
+          />
         </svg>
       )}{" "}
     </button>

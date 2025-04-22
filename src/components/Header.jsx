@@ -89,7 +89,7 @@ const Header = () => {
           >
             <Link
               href="/"
-              className="transition-all normal-case tracking-[0.05em] text-xl"
+              className="transition-all"
               onClick={(e) => {
                 if (pathname === "/") {
                   e.preventDefault();
@@ -115,7 +115,7 @@ const Header = () => {
       </nav>
 
       <nav
-        className="fixed bottom-0 w-full text-white uppercase font-[100] tracking-[0.25em] text-[0.9375em] z-20"
+        className="fixed bottom-0 w-full text-white uppercase font-[100] tracking-[0.25em] text-[0.9375em] z-20 pointer-events-none"
         style={{
           viewTransitionName: "nav-bottom",
           viewTransitionClass: "null",
@@ -125,7 +125,9 @@ const Header = () => {
           <li className="w-1/3">
             <Link
               href="/#projects"
-              className={`transition-all${pathname === "/" ? " active" : ""}`}
+              className={`pointer-events-auto transition-all${
+                pathname === "/" ? " active" : ""
+              }`}
             >
               Проекти
             </Link>
@@ -134,7 +136,7 @@ const Header = () => {
           <li className="w-1/3 text-right">
             <Link
               href="info"
-              className={`transition-all${
+              className={`pointer-events-auto transition-all${
                 pathname === "/info" ? " active" : ""
               }`}
             >

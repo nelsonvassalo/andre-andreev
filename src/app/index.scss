@@ -142,7 +142,7 @@ ul.grid li:hover h2 {
 @supports (view-transition-name: custom) {
 
   ::view-transition-image-pair(root) {
-    // animation: none;
+    animation: none;
     animation-duration: 0.2s;
   }
 
