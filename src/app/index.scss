@@ -141,7 +141,7 @@ ul.grid li:hover h2 {
 
 @supports (view-transition-name: custom) {
 
-  ::view-transition-group(root) {
+  ::view-transition-image-pair(root) {
     animation: none;
     animation-duration: 0.2s;
   }
@@ -149,17 +149,14 @@ ul.grid li:hover h2 {
   ::view-transition-group(.thumbnail),
   ::view-transition-new(.thumbnail),
   ::view-transition-old(.thumbnail) {
-    z-index: 0;
+    // z-index: 0;
     animation-duration: 1.5s;
-    animation-fill-mode: forwards;
+    // animation-fill-mode: both;
     animation-timing-function: cubic-bezier(1, 0, 0, 1);
-    isolation: isolate;
+    // isolation: isolate;
   }
 
-  ::view-transition-image-pair(.thumbnail) {
-    // opacity: 1;
-    mix-blend-mode: multiply;
-  }
+
 
 }
 

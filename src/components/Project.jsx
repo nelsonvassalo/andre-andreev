@@ -5,9 +5,11 @@ import Video from "@/components/Video";
 import { useStore } from "@/state/store";
 import { useInView } from "motion/react";
 import { motion as m } from "framer-motion";
+import { useTransitionRouter } from "next-view-transitions";
 import { useViewTransitionWithScroll } from "@/hooks/useViewTransitionWithScroll";
 
 const Project = ({ item, index }) => {
+  const router = useTransitionRouter();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: false, amount: "all" });
   const { setCurrent, scrollPosition, setAutoPlay } = useStore();
@@ -20,30 +22,20 @@ const Project = ({ item, index }) => {
     // Set current item for view transition naming
     setCurrent(index);
 
-    // Navigate to project using our custom hook that handles scroll position
     navigateToProject(item.slug.current, index);
   };
-
-  useEffect(() => {
-    if (ref.current) {
-      ref.current.style.viewTransitionName = `transition-${index}`;
-    }
-
-    return () => {
-      if (ref.current) {
-        ref.current.style.viewTransitionName = "";
-      }
-    };
-  }, [index]);
 
   return (
     <li
       ref={ref}
-      className={`w-full flex items-center snap-center relative project aspect-[2.3518637238]`}
-      initial="hidden"
-      id={`item-${index}`}
+      className="w-full flex items-center snap-center relative project aspect-[2.3518637238]"
+      id={`${item.slug.current}`}
       style={{
+        // Position is directly applied to ensure consistency
+        position: "relative",
+        contain: "layout size style",
         viewTransitionClass: "thumbnail",
+        viewTransitionName: item.slug.current,
       }}
     >
       <Link

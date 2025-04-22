@@ -67,9 +67,17 @@ const ProjectList = ({ posts, arr }) => {
         ) : null}
       </AP>
 
-      {arr.map((el, i) => (
-        <Project item={posts[0]} key={i} index={i} autoPlay={true} />
+      {posts.map((el, i) => (
+        <Project item={el} index={i} key={i} autoPlay={true} />
       ))}
+      {/* {arr.map((el, i) => (
+        <Project
+          item={posts[0]}
+          key={i + posts.length}
+          index={i + posts.length}
+          autoPlay={true}
+        />
+      ))} */}
       <AP>
         {!isBottomView ? (
           <BlurOverlay _key="bottom" height={blurHeight} />

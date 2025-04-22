@@ -6,7 +6,6 @@ import { useStore } from "@/state/store";
 import { motion as m } from "motion/react";
 import { useTransitionRouter } from "next-view-transitions";
 import Player from "@vimeo/player";
-import { usePathname, useRouter } from "next/navigation";
 
 const VideoPlayer = ({ video }) => {
   const router = useTransitionRouter();
@@ -28,37 +27,27 @@ const VideoPlayer = ({ video }) => {
   };
 
   const handleClick = async (e) => {
-    router.push(`/#item-${current}`);
     document.documentElement.classList.add("coming-back");
+    router.push(`/#${video.slug.current}`);
   };
 
-  useEffect(() => {
-    setTimeout(() => {
-      div.current.style.viewTransitionName = `transition-${current}`;
-      div.current.style.viewTransitionClass = "thumbnail";
-    }, 500);
-  }, []);
-
-  //  VIMEO PLAYER
-
+  // Vimeo player setup
   useEffect(() => {
     if (div.current && !player.current) {
       const defaultOptions = {
-        id: 185412081,
+        id: video.vimeo_url ? video.vimeo_url.split("/").pop() : 185412081,
         width: window.innerWidth,
-        height: 720,
-        controls: false, // Hide UI controls
+        height: window.innerHeight, // More responsive height
+        controls: false,
         loop: false,
-
-        title: false, // Hide title
-        byline: false, // Hide author byline
+        title: false,
+        byline: false,
         portrait: false,
       };
 
       // Initialize the Vimeo Player
       player.current = new Player(container.current, defaultOptions);
 
-      // You can add event listeners here if needed
       player.current.on("play", () => {
         setIsPlaying(true);
       });
@@ -73,26 +62,26 @@ const VideoPlayer = ({ video }) => {
       });
     }
 
-    // Clean up when component unmounts
     return () => {
       if (player.current) {
         player.current.destroy();
         player.current = null;
       }
     };
-  }, []);
+  }, [video.vimeo_url]);
 
   return (
     <>
       <div
-        className="player w-full grid grid-cols-1 grid-rows-1 col-start-1 row-start-1 z-10 relative"
+        className="player w-full grid grid-cols-1 grid-rows-1 col-start-1 row-start-1 z-10 px-[5%] relative"
         ref={div}
         style={{
-          viewTransitionName: `transition-${current}`,
+          viewTransitionName: video.slug.current,
           viewTransitionClass: "thumbnail",
+          contain: "layout size style",
         }}
       >
-        <div className="aspect-[2.3518637238] w-full h-full row-start-1 col-start-1 flex items-center justify-center">
+        <div className="w-full row-start-1 col-start-1 flex items-center justify-center relative ">
           <m.video
             playsInline
             loop
@@ -102,17 +91,31 @@ const VideoPlayer = ({ video }) => {
             preload="auto"
             src={video.loop.asset.url}
             className="w-full"
-            // animate={{ opacity: isLoaded ? 0 : 1 }}
+            animate={{ opacity: isLoaded ? 0 : 1 }}
             transition={{ delay: 1, duration: 0.75 }}
           />
         </div>
+
         <m.div
-          className="row-start-1 col-start-1 flex items-center w-full h-full [&_iframe]:w-full"
-          ref={container}
+          className="h-full row-start-1 col-start-1 inline-flex items-center w-full"
           initial={{ opacity: 0 }}
           animate={{ opacity: isLoaded ? 1 : 0 }}
           transition={{ duration: 1.5, delay: 1, ease: "easeInOut" }}
-        ></m.div>
+        >
+          <div
+            className="h-fit w-full [&_iframe]:w-full relative"
+            ref={container}
+          >
+            <div className="timeline px-4 w-full absolute bottom-1 h-1">
+              <div className="bg-white/30 h-full w-full">
+                <div
+                  className="progress bg-white h-full"
+                  style={{ width: "34%" }}
+                ></div>
+              </div>
+            </div>
+          </div>
+        </m.div>
 
         <div className="row-start-1 col-start-1 w-full flex items-center justify-center z-10 ">
           {isLoaded ? (

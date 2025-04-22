@@ -9,9 +9,8 @@ export function useViewTransitionWithScroll() {
   const router = useTransitionRouter();
   const { scrollPosition, setScroll } = useStore();
 
-  // Navigate to a project page, saving the current scroll position
   const navigateToProject = useCallback(
-    (slug, index) => {
+    (slug) => {
       // Save current scroll position
       setScroll(window.scrollY);
 
