@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Video from "@/components/Video";
 import { useStore } from "@/state/store";
@@ -9,22 +9,38 @@ import { useTransitionRouter } from "next-view-transitions";
 import { useViewTransitionWithScroll } from "@/hooks/useViewTransitionWithScroll";
 
 const Project = ({ item, index }) => {
-  console.log({ item });
   const router = useTransitionRouter();
+  const [isCurrent, setIsCurrent] = useState(false);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: false, amount: "all" });
-  const { setCurrent, scrollPosition, setAutoPlay } = useStore();
+  const { setCurrent, setAutoPlay, setNavigatedFromHome, navigatedFromHome } =
+    useStore();
+
   const { navigateToProject } = useViewTransitionWithScroll();
 
   const handleNavigation = (e) => {
+    setNavigatedFromHome(true);
+    setIsCurrent(true);
     setAutoPlay(true);
     e.preventDefault();
+
+    e.target.parentElement.style.viewTransitionClass = "current";
 
     // Set current item for view transition naming
     setCurrent(index);
 
     navigateToProject(item.slug.current, index);
   };
+
+  useEffect(() => {
+    console.log({ navigatedFromHome, item });
+    setTimeout(() => {
+      if (navigatedFromHome) {
+        setNavigatedFromHome(false);
+        setIsCurrent(false);
+      }
+    }, 1000);
+  }, []);
 
   return (
     <li
@@ -35,7 +51,7 @@ const Project = ({ item, index }) => {
         // Position is directly applied to ensure consistency
         contain: "layout size style",
         viewTransitionClass: "thumbnail",
-        viewTransitionName: item.slug.current,
+        viewTransitionName: isCurrent ? "current" : item.slug.current,
       }}
     >
       <Link

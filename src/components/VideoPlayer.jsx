@@ -7,7 +7,7 @@ import { motion as m } from "motion/react";
 import { useTransitionRouter } from "next-view-transitions";
 import Player from "@vimeo/player";
 
-const VideoPlayer = ({ video }) => {
+const VideoPlayer = ({ video, posts, i }) => {
   const router = useTransitionRouter();
   const ref = useRef(null);
   const div = useRef(null);
@@ -15,7 +15,7 @@ const VideoPlayer = ({ video }) => {
   const player = useRef(null);
 
   const [isLoaded, setIsLoaded] = useState(false);
-  const { show, current, autoPlay } = useStore();
+  const { show, current, autoPlay, navigatedFromHome } = useStore();
   const [isPlaying, setIsPlaying] = useState(false || autoPlay);
 
   const togglePlay = () => {
@@ -60,6 +60,10 @@ const VideoPlayer = ({ video }) => {
         player.current.play();
         setIsLoaded(true);
       });
+
+      const TIMER = setTimeout(() => {
+        ref.current.style.viewTransitionName = video.slug.current;
+      }, 100);
     }
 
     return () => {
@@ -89,7 +93,9 @@ const VideoPlayer = ({ video }) => {
             animate={{ opacity: isLoaded ? 0 : 1 }}
             transition={{ delay: 1, duration: 0.75 }}
             style={{
-              viewTransitionName: video.slug.current,
+              viewTransitionName: navigatedFromHome
+                ? "current"
+                : video.slug.current,
               viewTransitionClass: "thumbnail",
               // contain: "layout size style",
             }}

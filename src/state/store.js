@@ -15,4 +15,6 @@ export const useStore = create((set) => ({
   setHeaderScrolled: (value) => set({ headerScrolled: value }),
   projects: [],
   setProjects: (val) => set({ projects: val }),
+  navigatedFromHome: false,
+  setNavigatedFromHome: (val) => set({ navigatedFromHome: val }),
 }));

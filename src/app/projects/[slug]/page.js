@@ -22,7 +22,10 @@ export async function generateStaticParams() {
 const options = { next: { revalidate: 30 } };
 
 export default async function ProjectPage({ params }) {
+  const posts = await client.fetch(ALL_SLUGS_QUERY, {}, options);
   const post = await client.fetch(POST_QUERY, await params, options);
+
+  const index = posts.findIndex((p) => p.slug === post.slug.current);
 
   return (
     <main className="grid min-h-screen grid-cols-1  grid-rows-1 gap-4">
@@ -32,7 +35,7 @@ export default async function ProjectPage({ params }) {
         </h1>
       </div>
 
-      <VideoPlayer video={post} />
+      <VideoPlayer video={post} posts={posts} i={index} />
     </main>
   );
 }

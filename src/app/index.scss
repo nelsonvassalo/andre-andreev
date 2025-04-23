@@ -141,10 +141,19 @@ ul.grid li:hover h2 {
 
 @supports (view-transition-name: custom) {
 
+  ::view-transition-group(root) {
+    z-index: 0;
+  }
+
   ::view-transition-image-pair(root) {
     // animation: none;
     animation-duration: 0.2s;
   }
+
+
+  // ::view-transition-group(.thumbnail) {
+  //   z-index: auto !important;
+  // }
 
   ::view-transition-group(.thumbnail),
   ::view-transition-new(.thumbnail),
@@ -156,12 +165,14 @@ ul.grid li:hover h2 {
     // isolation: isolate;
   }
 
+
   ::view-transition-old(.thumbnail),
   ::view-transition-new(.thumbnail) {
     // animation: none;
     // mix-blend-mode: normal;
-    // isolation: isolate;
-    will-change: opacity, transform;
+    animation-fill-mode: forwards;
+    isolation: isolate;
+    // will-change: opacity, transform;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -173,6 +184,10 @@ ul.grid li:hover h2 {
 
   ::view-transition-new(.thumbnail) {
     z-index: 2 !important;
+  }
+
+  ::view-transition-group(current) {
+    z-index: 10 !important;
   }
 
 

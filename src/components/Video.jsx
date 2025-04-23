@@ -17,8 +17,8 @@ const Video = ({ src, thumbnail, isInView }) => {
 
     const play = () => {
       console.log("play");
-
       if (viewMode === "grid" && videoRef) {
+        videoElement.currentTime = 0;
         videoElement.play();
       }
     };

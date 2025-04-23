@@ -10,7 +10,6 @@ import { usePathname } from "next/navigation";
 
 const ProjectList = ({ posts, arr }) => {
   const pathname = usePathname();
-  // 2,3518637238
 
   const [isTopView, setIsTopView] = useState(true);
   const [blurHeight, setBlurHeight] = useState(0);
