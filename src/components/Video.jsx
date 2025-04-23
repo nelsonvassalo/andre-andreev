@@ -76,7 +76,7 @@ const Video = ({ src, thumbnail, isInView }) => {
         src={thumbnail ? thumbnail : "/poster.png"}
         width={1000}
         height={500}
-        className="w-full group-hover:opacity-0 absolute top-0 transition-opacity duration-700"
+        className="w-full group-hover:opacity-0 absolute top-0 transition-opacity duration-700 h-full object-cover"
       />
       <video
         playsInline
@@ -85,7 +85,7 @@ const Video = ({ src, thumbnail, isInView }) => {
         ref={videoRef}
         src={src}
         preload="metadata"
-        className="col-start-1 row-start-1 w-full h-full object-cover aspect-[2.3518637238] group-hover:opacity-1 transition-opacity"
+        className="col-start-1 row-start-1 w-full h-full object-cover aspect-[2.3703703704] group-hover:opacity-1 transition-opacity"
       />
     </div>
   );

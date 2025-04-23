@@ -29,7 +29,7 @@ const Project = ({ item, index }) => {
   return (
     <li
       ref={ref}
-      className="w-full flex items-center snap-center relative project aspect-[2.3518637238]"
+      className="w-full flex items-center snap-center relative project aspect-[2.3703703704]"
       id={`${item.slug.current}`}
       style={{
         // Position is directly applied to ensure consistency

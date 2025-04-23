@@ -34,60 +34,71 @@ const ViewButton = () => {
       // initial={{ transform: "translateY(100px)" }}
       // animate={{
       //   transform: headerScrolled ? "translateY(0px)" : "translateY(100px)",
-      // }}
       transition={{ duration: 0.5, ease: "easeOut" }}
       style={{ viewTransitionClass: "null", viewTransitionName: "btn" }}
     >
       {viewMode == "list" ? (
         <svg
-          width="37"
-          height="27"
-          viewBox="0 0 37 27"
+          width="29"
+          height="21"
+          viewBox="0 0 29 21"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
           <rect
-            x="0.25"
-            y="0.0498047"
-            width="17.15"
-            height="7.35"
+            x="0.276794"
+            y="0.588867"
+            width="12.9878"
+            height="5.5662"
             fill="white"
           />
           <rect
-            x="19.85"
-            y="0.0498047"
-            width="17.15"
-            height="7.35"
+            x="15.1199"
+            y="0.588867"
+            width="12.9878"
+            height="5.5662"
             fill="white"
           />
-          <rect x="0.25" y="9.84961" width="17.15" height="7.35" fill="white" />
           <rect
-            x="19.85"
-            y="9.84961"
-            width="17.15"
-            height="7.35"
+            x="0.276794"
+            y="8.00977"
+            width="12.9878"
+            height="5.5662"
             fill="white"
           />
-          <rect x="0.25" y="19.6504" width="17.15" height="7.35" fill="white" />
           <rect
-            x="19.85"
-            y="19.6504"
-            width="17.15"
-            height="7.35"
+            x="15.1199"
+            y="8.00977"
+            width="12.9878"
+            height="5.5662"
+            fill="white"
+          />
+          <rect
+            x="0.276794"
+            y="15.4326"
+            width="12.9878"
+            height="5.5662"
+            fill="white"
+          />
+          <rect
+            x="15.1199"
+            y="15.4326"
+            width="12.9878"
+            height="5.5662"
             fill="white"
           />
         </svg>
       ) : (
         <svg
-          width="37"
-          height="25"
-          viewBox="0 0 37 25"
+          width="28"
+          height="19"
+          viewBox="0 0 28 19"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <rect y="0.351562" width="36.75" height="2.45" fill="white" />
-          <rect y="5.25195" width="36.75" height="14.7" fill="white" />
-          <rect y="22.4014" width="36.75" height="2.45" fill="white" />
+          <rect y="0.351562" width="27.831" height="1.8554" fill="white" />
+          <rect y="4.0625" width="27.831" height="11.1324" fill="white" />
+          <rect y="17.0498" width="27.831" height="1.8554" fill="white" />
         </svg>
       )}{" "}
     </m.button>

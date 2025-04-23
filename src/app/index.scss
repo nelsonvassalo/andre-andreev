@@ -159,8 +159,8 @@ ul.grid li:hover h2 {
   ::view-transition-old(.thumbnail),
   ::view-transition-new(.thumbnail) {
     // animation: none;
-    mix-blend-mode: normal;
-    isolation: isolate;
+    // mix-blend-mode: normal;
+    // isolation: isolate;
     will-change: opacity, transform;
     width: 100%;
     height: 100%;
