@@ -75,10 +75,6 @@ const VideoPlayer = ({ video }) => {
       <div
         className="player w-full grid grid-cols-1 grid-rows-1 col-start-1 row-start-1 z-10 px-[5%] relative"
         ref={div}
-        style={{
-          viewTransitionClass: "thumbnail",
-          contain: "layout size style",
-        }}
       >
         <div className="w-full row-start-1 col-start-1 flex items-center justify-center relative ">
           <m.video
@@ -92,6 +88,11 @@ const VideoPlayer = ({ video }) => {
             className="w-full"
             animate={{ opacity: isLoaded ? 0 : 1 }}
             transition={{ delay: 1, duration: 0.75 }}
+            style={{
+              viewTransitionName: video.slug.current,
+              viewTransitionClass: "thumbnail",
+              // contain: "layout size style",
+            }}
           />
         </div>
 
@@ -181,7 +182,7 @@ const VideoPlayer = ({ video }) => {
 
       <m.div animate={{ opacity: show ? 1 : 0 }}>
         <a
-          className="px-4 py-2 z-20 left-1/2 -translate-x-1/2 fixed flex items-center gap-2 text-[0.9375em] font-[100] tracking-[0.25em] uppercase text-white bottom-12  hover:font-[300] hover:tracking-[0.23em] cursor-pointer group"
+          className="px-4 py-2 z-20 left-1/2 -translate-x-1/2 fixed flex items-center gap-2 text-[0.9375em] font-[100] tracking-[0.25em] uppercase text-white bottom-3  hover:font-[300] hover:tracking-[0.23em] cursor-pointer group"
           onClick={handleClick}
         >
           <svg

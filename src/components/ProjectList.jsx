@@ -51,12 +51,7 @@ const ProjectList = ({ posts, arr }) => {
   }, [pathname]);
 
   return (
-    <ul
-      id="projects"
-      className={`${
-        viewMode == "grid" ? "grid grid-cols-2 p-1 gap-1" : "flex flex-col"
-      } z-10  snap-mandatory snap-y relative`}
-    >
+    <div className="relative flex flex-col">
       <AP>
         {!isTopView ? (
           <BlurOverlay
@@ -66,11 +61,16 @@ const ProjectList = ({ posts, arr }) => {
           />
         ) : null}
       </AP>
-
-      {posts.map((el, i) => (
-        <Project item={el} index={i} key={i} autoPlay={true} />
-      ))}
-      {/* {arr.map((el, i) => (
+      <ul
+        id="projects"
+        className={`${
+          viewMode == "grid" ? "grid grid-cols-2 p-1 gap-1" : "flex flex-col"
+        } z-10  snap-mandatory snap-y relative`}
+      >
+        {posts.map((el, i) => (
+          <Project item={el} index={i} key={i} autoPlay={true} />
+        ))}
+        {/* {arr.map((el, i) => (
         <Project
           item={posts[0]}
           key={i + posts.length}
@@ -78,13 +78,14 @@ const ProjectList = ({ posts, arr }) => {
           autoPlay={true}
         />
       ))} */}
+      </ul>
       <AP>
         {!isBottomView ? (
           <BlurOverlay _key="bottom" height={blurHeight} />
         ) : null}
       </AP>
       <ViewButton />
-    </ul>
+    </div>
   );
 };
 

@@ -1,9 +1,11 @@
 "use client";
 import { useStore } from "@/state/store";
+import { motion as m } from "motion/react";
 import { useEffect } from "react";
 
 const ViewButton = () => {
   const { viewMode, setViewMode } = useStore();
+  const { headerScrolled } = useStore();
 
   useEffect(() => {
     const listElements = Array.from(document.querySelectorAll(".video-group"));
@@ -26,24 +28,17 @@ const ViewButton = () => {
   };
 
   return (
-    <button
-      className="mt-40 flex items-center gap-2 text-[0.9375em] px-4 py-2 z-[9999] left-1/2 -translate-x-1/2 sticky font-[100] tracking-[0.25em] uppercase text-white bottom-2 transition-colors hover:font-[300] hover:tracking-[0.23em] w-fit h-fit"
+    <m.button
+      className="self-center z-[100] mt-20 flex items-center gap-2 text-[0.9375em] sticky font-[100] tracking-[0.25em] uppercase text-white bottom-3 transition-colors hover:font-[300] hover:tracking-[0.23em] w-[37px] h-[27px]"
       onClick={handleClick}
+      // initial={{ transform: "translateY(100px)" }}
+      // animate={{
+      //   transform: headerScrolled ? "translateY(0px)" : "translateY(100px)",
+      // }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
       style={{ viewTransitionClass: "null", viewTransitionName: "btn" }}
     >
       {viewMode == "list" ? (
-        <svg
-          width="37"
-          height="25"
-          viewBox="0 0 37 25"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <rect y="0.351562" width="36.75" height="2.45" fill="white" />
-          <rect y="5.25195" width="36.75" height="14.7" fill="white" />
-          <rect y="22.4014" width="36.75" height="2.45" fill="white" />
-        </svg>
-      ) : (
         <svg
           width="37"
           height="27"
@@ -82,8 +77,20 @@ const ViewButton = () => {
             fill="white"
           />
         </svg>
+      ) : (
+        <svg
+          width="37"
+          height="25"
+          viewBox="0 0 37 25"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect y="0.351562" width="36.75" height="2.45" fill="white" />
+          <rect y="5.25195" width="36.75" height="14.7" fill="white" />
+          <rect y="22.4014" width="36.75" height="2.45" fill="white" />
+        </svg>
       )}{" "}
-    </button>
+    </m.button>
   );
 };
 export default ViewButton;
