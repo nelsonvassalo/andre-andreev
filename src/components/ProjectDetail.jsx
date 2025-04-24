@@ -61,8 +61,8 @@ const ProjectDetail = ({ video, posts, i }) => {
       });
 
       player.current.ready().then(() => {
-        // player.current.play();
-        // setIsLoaded(true);
+        player.current.play();
+        setIsLoaded(true);
       });
 
       timer = setTimeout(() => {
