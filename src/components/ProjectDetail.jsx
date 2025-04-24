@@ -35,6 +35,13 @@ const ProjectDetail = ({ video, posts, i }) => {
     router.push(`/#${video.slug.current}`);
   };
 
+  const play = () => {
+    setIsPlaying(true);
+  };
+
+  const pause = () => {
+    setIsPlaying(false);
+  };
   // Vimeo player setup
   useEffect(() => {
     if (div.current && !player.current) {
@@ -52,15 +59,11 @@ const ProjectDetail = ({ video, posts, i }) => {
       // Initialize the Vimeo Player
       player.current = new Player(container.current, defaultOptions);
 
-      player.current.on("play", () => {
-        setIsPlaying(true);
-      });
-
-      player.current.on("pause", () => {
-        setIsPlaying(false);
-      });
-
       player.current.ready().then(() => {
+
+        player.current.on("play", play);
+        player.current.on("pause", pause);
+
         player.current.play();
         setIsLoaded(true);
       });
@@ -73,7 +76,10 @@ const ProjectDetail = ({ video, posts, i }) => {
 
     return () => {
       if (player.current) {
+        player.current.off("play", play);
+        player.current.off("pause", pause);
         player.current.destroy();
+        player.current.remove;
         player.current = null;
       }
       clearTimeout(timer);
