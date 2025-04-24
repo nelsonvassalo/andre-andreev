@@ -43,22 +43,27 @@ const Header = () => {
   useEffect(() => {
     const menus = Array.from(header.current.querySelectorAll("ul"));
     const linkMap = menus.map((menu, mI) => {
-      const links = Array.from(menu.querySelectorAll("a"));
+      const links = Array.from(menu.querySelectorAll("a:not(.skip)"));
       return links;
     });
+    console.log("🚀 ~ linkMap ~ linkMap:", linkMap);
 
     linkMap.forEach((menu, mI) => {
       // Each language menu
       menu.forEach((link, index) => {
         // Each link in the menu
         link.addEventListener("mouseenter", () => {
-          linkMap[0][index].style.fontWeight = "300";
-          linkMap[1][index].style.fontWeight = "300";
-          console.log("hovered");
+          console.log(linkMap[0][index], linkMap[1][index]);
+          linkMap[0][index].style.fontWeight = "500";
+          linkMap[0][index].style.letterSpacing = "0.12em";
+          linkMap[1][index].style.fontWeight = "500";
+          linkMap[1][index].style.letterSpacing = "0.12em";
         });
         link.addEventListener("mouseleave", () => {
           linkMap[0][index].style.fontWeight = "100";
+          linkMap[0][index].style.letterSpacing = "0.05em";
           linkMap[1][index].style.fontWeight = "100";
+          linkMap[1][index].style.letterSpacing = "0.05em";
         });
       });
     });
@@ -67,14 +72,16 @@ const Header = () => {
   return (
     <m.header animate={{ opacity: show ? 1 : 0 }} ref={header}>
       <nav
-        className="fixed top-0 w-full text-white uppercase font-[100] tracking-[0.25em] text-[0.9375em] z-20"
+        className="fixed top-0 w-full text-white uppercase font-[100] tracking-[0.05em] text-[0.9375em] z-20"
         style={{ viewTransitionName: "nav-top", viewTransitionClass: "null" }}
       >
         <ul className="flex justify-between w-full p-4">
           <li className="w-1/3">
             <Link
               href="/#projects"
-              className={`transition-all${pathname === "/" ? " active" : ""}`}
+              className={`transition-all duration-700 ease-[cubic-bezier(0.25, 0.1, 0.25, 1)] ${
+                pathname === "/" ? " active" : ""
+              }`}
             >
               Projects
             </Link>
@@ -89,7 +96,7 @@ const Header = () => {
           >
             <Link
               href="/"
-              className="transition-all"
+              className="skip transition-all duration-700 ease-[cubic-bezier(0.25, 0.1, 0.25, 1)]"
               onClick={(e) => {
                 if (pathname === "/") {
                   e.preventDefault();
@@ -104,7 +111,7 @@ const Header = () => {
           <li className="w-1/3 text-right">
             <Link
               href="/info"
-              className={`transition-all${
+              className={`duration-700 ease-[cubic-bezier(0.25, 0.1, 0.25, 1)] transition-all${
                 pathname === "/info" ? " active" : ""
               }`}
             >
@@ -115,7 +122,7 @@ const Header = () => {
       </nav>
 
       <nav
-        className="fixed bottom-0 w-full text-white uppercase font-[100] tracking-[0.25em] text-[0.9375em] z-20 pointer-events-none"
+        className="fixed bottom-0 w-full text-white uppercase font-[100] tracking-[0.05em] text-[0.9375em] z-20 pointer-events-none"
         style={{
           viewTransitionName: "nav-bottom",
           viewTransitionClass: "null",
@@ -125,7 +132,7 @@ const Header = () => {
           <li className="w-1/3">
             <Link
               href="/#projects"
-              className={`pointer-events-auto transition-all${
+              className={`duration-700 ease-[cubic-bezier(0.25, 0.1, 0.25, 1)] pointer-events-auto transition-all${
                 pathname === "/" ? " active" : ""
               }`}
             >
@@ -136,7 +143,7 @@ const Header = () => {
           <li className="w-1/3 text-right">
             <Link
               href="info"
-              className={`pointer-events-auto transition-all${
+              className={`duration-700 ease-[cubic-bezier(0.25, 0.1, 0.25, 1)] pointer-events-auto transition-all${
                 pathname === "/info" ? " active" : ""
               }`}
             >

@@ -3,24 +3,15 @@
 import Link from "next/link";
 import { useTransitionRouter } from "next-view-transitions";
 import { useState, useEffect, useRef } from "react";
-import { useStore } from "@/state/store";
 
 export const NextVideos = ({ posts, i }) => {
-  const video = useRef(null);
-  const { setNavigatedWithin, navigatedWithin } = useStore();
+  const videos = useRef([]);
   const router = useTransitionRouter();
-  const [transitionKey, setTransitionKey] = useState(Date.now()); // Set a new key on each transition
-  useEffect(() => {
-    setTransitionKey(Date.now()); // Trigger a new key whenever you want to force a re-render
-  }, [posts]);
 
   const nextVideos = [...posts.slice(i + 1), ...posts.slice(0, 4)].slice(0, 4);
 
   return (
-    <div
-      className="text-white grid grid-cols-4 w-full"
-      key={`next_${transitionKey}`}
-    >
+    <div className="text-white grid grid-cols-4 w-full fixed top-0 z-[100]">
       {nextVideos.map((post, index) => {
         const { loop, EN_title: en_title, BG_title: bg_title, slug } = post;
 
@@ -28,9 +19,12 @@ export const NextVideos = ({ posts, i }) => {
           <Link
             className="grid grid-cols-1 grid-rows-1"
             onClick={(e) => {
-              video.current.style.viewTransitionName = `project_${slug}`;
+              console.log(videos.current);
+              videos.current[
+                index
+              ].style.viewTransitionName = `project_${slug}`;
               e.preventDefault();
-              console.log({ navigatedWithin });
+
               router.push(`/projects/${slug}`);
             }}
             key={`video_${index}`}
@@ -42,7 +36,7 @@ export const NextVideos = ({ posts, i }) => {
               loop
               autoPlay
               muted
-              ref={video}
+              ref={(el) => (videos.current[index] = el)}
               playsInline
               key={slug}
               style={{

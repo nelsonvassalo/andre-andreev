@@ -16,8 +16,11 @@ const ProjectDetail = ({ video, posts, i }) => {
   const player = useRef(null);
 
   const [isLoaded, setIsLoaded] = useState(false);
-  const { show, autoPlay, navigatedFromHome } = useStore();
+  const { show, autoPlay, navigatedFromHome, setNavigatedFromHome } =
+    useStore();
   const [isPlaying, setIsPlaying] = useState(false || autoPlay);
+
+  let timer;
 
   const togglePlay = () => {
     if (isPlaying) {
@@ -30,11 +33,6 @@ const ProjectDetail = ({ video, posts, i }) => {
   const handleClick = async (e) => {
     document.documentElement.classList.add("coming-back");
     router.push(`/#${video.slug.current}`);
-  };
-
-  const transitionName = () => {
-    if (navigatedFromHome) return "current";
-    return `project_${video.slug.current}`;
   };
 
   // Vimeo player setup
@@ -63,12 +61,13 @@ const ProjectDetail = ({ video, posts, i }) => {
       });
 
       player.current.ready().then(() => {
-        player.current.play();
-        setIsLoaded(true);
+        // player.current.play();
+        // setIsLoaded(true);
       });
 
-      const TIMER = setTimeout(() => {
+      timer = setTimeout(() => {
         ref.current.style.viewTransitionName = video.slug.current;
+        setNavigatedFromHome(false);
       }, 100);
     }
 
@@ -77,16 +76,18 @@ const ProjectDetail = ({ video, posts, i }) => {
         player.current.destroy();
         player.current = null;
       }
+      clearTimeout(timer);
     };
   }, [video.vimeo_url]);
 
   return (
     <>
-      <NextVideos posts={posts} i={i} />
       <div
         className="player w-full grid grid-cols-1 grid-rows-1 col-start-1 row-start-1 z-10 px-[5%] relative"
         ref={div}
       >
+        <NextVideos posts={posts} i={i} />
+
         <div className="w-full row-start-1 col-start-1 flex items-center justify-center relative ">
           <m.video
             playsInline
@@ -100,9 +101,11 @@ const ProjectDetail = ({ video, posts, i }) => {
             animate={{ opacity: isLoaded ? 0 : 1 }}
             transition={{ delay: 1, duration: 0.75 }}
             style={{
-              viewTransitionName: transitionName(),
+              viewTransitionName: navigatedFromHome
+                ? "current"
+                : `project_${video.slug.current}`,
               viewTransitionClass: "thumbnail",
-              contain: "layout size style",
+              contain: "layout  style",
             }}
           />
         </div>
