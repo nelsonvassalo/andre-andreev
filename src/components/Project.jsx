@@ -36,7 +36,6 @@ const Project = ({ item, index }) => {
   };
 
   useEffect(() => {
-    console.log({ navigatedFromHome, item });
     setTimeout(() => {
       if (navigatedFromHome) {
         setNavigatedFromHome(false);

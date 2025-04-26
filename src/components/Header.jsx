@@ -18,9 +18,7 @@ const Header = () => {
 
     // Disable UI on project pages
     if (pathname.includes("projects")) {
-      timer = setTimeout(() => {
-        setShow(false);
-      }, 1000);
+      setShow(false);
 
       window.addEventListener("mousemove", () => {
         clearTimeout(timer);
@@ -90,8 +88,8 @@ const Header = () => {
             className="tracking-[0.22em] text-center"
             initial={{ y: "-100%", opacity: 0 }}
             animate={{
-              y: headerScrolled ? 0 : "-100%",
-              opacity: headerScrolled ? 1 : 0,
+              y: headerScrolled || show ? 0 : "-100%",
+              opacity: headerScrolled || show ? 1 : 0,
             }}
           >
             <Link

@@ -47,12 +47,10 @@ export default async function ProjectPage({ params }) {
   const index = posts.findIndex((p) => p.slug === post.slug.current);
 
   return (
-    <main className="grid min-h-screen grid-cols-1  grid-rows-1 gap-4">
-      <div className="col-start-1 row-start-1 flex w-full h-full z-10 text-white items-center justify-center">
-        <h1 className="hidden">
-          {post.EN_title} ⁄ {post.BG_title}
-        </h1>
-      </div>
+    <main className="flex min-h-screen items-center gap-4">
+      <h1 className="hidden">
+        {post.EN_title} ⁄ {post.BG_title}
+      </h1>
 
       <ProjectDetail key={post.slug} video={post} posts={posts} i={index} />
     </main>
