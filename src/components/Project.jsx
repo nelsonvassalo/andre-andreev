@@ -29,6 +29,8 @@ const Project = ({ item, index }) => {
     setAutoPlay(true);
     e.preventDefault();
 
+    ref.current.style.viewTransitionName = "current";
+
     // Set current item for view transition naming
     setCurrent(index);
 
