@@ -3,16 +3,22 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useTransitionRouter } from "next-view-transitions";
+import { motion as m, cubicBezier } from "motion/react";
 import { useRef } from "react";
 
-export const NextVideos = ({ posts, i }) => {
+export const NextVideos = ({ posts, i, show }) => {
   const videos = useRef([]);
   const router = useTransitionRouter();
 
   const nextVideos = [...posts.slice(i + 1), ...posts.slice(0, 4)].slice(0, 4);
 
   return (
-    <div className="text-white grid grid-cols-4 w-full fixed top-0 z-[100]">
+    <m.div
+      className="text-white grid grid-cols-4 w-full fixed top-0 z-[100]"
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: show ? 0 : -100, opacity: show ? 1 : 0 }}
+      transition={{ duration: 0.7, ease: cubicBezier(0.25, 0.1, 0.25, 1) }}
+    >
       {nextVideos.map((post, index) => {
         const {
           EN_title: en_title,
@@ -57,7 +63,7 @@ export const NextVideos = ({ posts, i }) => {
           </Link>
         );
       })}
-    </div>
+    </m.div>
   );
 };
 

@@ -16,11 +16,8 @@ const ProjectDetail = ({ video, posts, i }) => {
   const player = useRef(null);
 
   const [isLoaded, setIsLoaded] = useState(false);
-  const { show, autoPlay, navigatedFromHome, setNavigatedFromHome } =
-    useStore();
+  const { show, autoPlay } = useStore();
   const [isPlaying, setIsPlaying] = useState(false || autoPlay);
-
-  let timer;
 
   const togglePlay = () => {
     if (isPlaying) {
@@ -86,7 +83,7 @@ const ProjectDetail = ({ video, posts, i }) => {
         className="player w-full grid grid-cols-1 grid-rows-1 col-start-1 row-start-1 z-10  relative"
         ref={div}
       >
-        <NextVideos posts={posts} i={i} />
+        <NextVideos posts={posts} i={i} show={show} />
 
         <div className="w-full row-start-1 col-start-1 flex items-center justify-center relative ">
           <m.video

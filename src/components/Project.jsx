@@ -51,7 +51,6 @@ const Project = ({ item, index }) => {
       className="w-full flex items-center snap-center relative project aspect-[2.3703703704] transition-opacity"
       id={`${item.slug.current}`}
       style={{
-        // Position is directly applied to ensure consistency
         viewTransitionClass: "thumbnail",
         viewTransitionName: item.slug.current,
         opacity: viewMode === "list" ? (isInView ? 1 : 0.35) : 1,

@@ -15,7 +15,7 @@ const VideoPlayer = ({ video, posts, i }) => {
   const player = useRef(null);
 
   const [isLoaded, setIsLoaded] = useState(false);
-  const { show, current, autoPlay, navigatedFromHome } = useStore();
+  const { show, autoPlay, navigatedFromHome } = useStore();
   const [isPlaying, setIsPlaying] = useState(false || autoPlay);
 
   const togglePlay = () => {
