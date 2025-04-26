@@ -13,8 +13,13 @@ const Project = ({ item, index }) => {
   const [isCurrent, setIsCurrent] = useState(false);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: false, amount: "all" });
-  const { setCurrent, setAutoPlay, setNavigatedFromHome, navigatedFromHome } =
-    useStore();
+  const {
+    setCurrent,
+    setAutoPlay,
+    setNavigatedFromHome,
+    navigatedFromHome,
+    viewMode,
+  } = useStore();
 
   const { navigateToProject } = useViewTransitionWithScroll();
 
@@ -45,13 +50,14 @@ const Project = ({ item, index }) => {
   return (
     <li
       ref={ref}
-      className="w-full flex items-center snap-center relative project aspect-[2.3703703704]"
+      className="w-full flex items-center snap-center relative project aspect-[2.3703703704] transition-opacity"
       id={`${item.slug.current}`}
       style={{
         // Position is directly applied to ensure consistency
         contain: "layout size style",
         viewTransitionClass: "thumbnail",
         viewTransitionName: isCurrent ? "current" : item.slug.current,
+        opacity: viewMode === "list" ? (isInView ? 1 : 0.35) : 1,
       }}
     >
       <Link
