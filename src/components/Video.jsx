@@ -50,7 +50,6 @@ const Video = ({ src, thumbnail, isInView }) => {
           }
         }
       } else {
-        console.log({ container }, "left view");
         // Pause if not in view
         container.current.classList.remove("active");
         if (!videoElement.paused) {
