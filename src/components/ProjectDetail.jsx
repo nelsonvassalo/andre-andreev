@@ -32,6 +32,7 @@ const ProjectDetail = ({ video, posts, i }) => {
 
   const handleClick = async (e) => {
     document.documentElement.classList.add("coming-back");
+    ref.current.style.viewTransitionName = video.slug.current;
     router.push(`/#${video.slug.current}`);
   };
 
@@ -60,18 +61,12 @@ const ProjectDetail = ({ video, posts, i }) => {
       player.current = new Player(container.current, defaultOptions);
 
       player.current.ready().then(() => {
-
         player.current.on("play", play);
         player.current.on("pause", pause);
 
         player.current.play();
         setIsLoaded(true);
       });
-
-      timer = setTimeout(() => {
-        ref.current.style.viewTransitionName = video.slug.current;
-        setNavigatedFromHome(false);
-      }, 100);
     }
 
     return () => {
@@ -82,14 +77,13 @@ const ProjectDetail = ({ video, posts, i }) => {
         player.current.remove;
         player.current = null;
       }
-      clearTimeout(timer);
     };
   }, [video.vimeo_url]);
 
   return (
     <>
       <div
-        className="player w-full grid grid-cols-1 grid-rows-1 col-start-1 row-start-1 z-10 px-[5%] relative"
+        className="player w-full grid grid-cols-1 grid-rows-1 col-start-1 row-start-1 z-10  relative"
         ref={div}
       >
         <NextVideos posts={posts} i={i} />
@@ -103,15 +97,12 @@ const ProjectDetail = ({ video, posts, i }) => {
             autoPlay
             preload="auto"
             src={video.loop.asset.url}
-            className="w-full"
+            className="main-loop w-full"
             animate={{ opacity: isLoaded ? 0 : 1 }}
             transition={{ delay: 1, duration: 0.75 }}
             style={{
-              viewTransitionName: navigatedFromHome
-                ? "current"
-                : `project_${video.slug.current}`,
+              viewTransitionName: "current",
               viewTransitionClass: "thumbnail",
-              contain: "layout  style",
             }}
           />
         </div>

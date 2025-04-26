@@ -29,8 +29,6 @@ const Project = ({ item, index }) => {
     setAutoPlay(true);
     e.preventDefault();
 
-    e.target.parentElement.style.viewTransitionClass = "current";
-
     // Set current item for view transition naming
     setCurrent(index);
 
@@ -54,9 +52,8 @@ const Project = ({ item, index }) => {
       id={`${item.slug.current}`}
       style={{
         // Position is directly applied to ensure consistency
-        contain: "layout size style",
         viewTransitionClass: "thumbnail",
-        viewTransitionName: isCurrent ? "current" : item.slug.current,
+        viewTransitionName: item.slug.current,
         opacity: viewMode === "list" ? (isInView ? 1 : 0.35) : 1,
       }}
     >

@@ -97,7 +97,6 @@ const VideoPlayer = ({ video, posts, i }) => {
                 ? "current"
                 : video.slug.current,
               viewTransitionClass: "thumbnail",
-              // contain: "layout size style",
             }}
           />
         </div>
