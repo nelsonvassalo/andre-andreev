@@ -10,13 +10,13 @@ export const NextVideos = ({ posts, i, show }) => {
   const videos = useRef([]);
   const router = useTransitionRouter();
 
-  const nextVideos = [...posts.slice(i + 1), ...posts.slice(0, 4)].slice(0, 4);
+  const nextVideos = [...posts.slice(i + 1), ...posts.slice(0, 6)].slice(0, 6);
 
   return (
     <m.div
-      className="text-white grid grid-cols-4 w-full fixed top-0 z-[100]"
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: show ? 0 : -100, opacity: show ? 1 : 0 }}
+      className="text-white grid grid-cols-6 w-full fixed bottom-0 z-[100]"
+      initial={{ y: 100, opacity: 0 }}
+      animate={{ y: show ? 0 : 100, opacity: show ? 1 : 0 }}
       transition={{ duration: 0.7, ease: cubicBezier(0.25, 0.1, 0.25, 1) }}
     >
       {nextVideos.map((post, index) => {
@@ -56,7 +56,7 @@ export const NextVideos = ({ posts, i, show }) => {
               }}
             />
             <div className="col-start-1 row-start-1 row-span-1 col-span-1 flex items-center justify-center z-1">
-              <h4 className="text-white text-center tracking-[0.12em] !font-[100] uppercase text-sm">
+              <h4 className="text-white text-center tracking-[0.12em] !font-[100] uppercase text-xs px-4">
                 {en_title} ⁄ {bg_title}
               </h4>
             </div>

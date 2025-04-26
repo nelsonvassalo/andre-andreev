@@ -3,7 +3,7 @@
 import { useRef, useEffect, useState } from "react";
 import Link from "next/link";
 import { useStore } from "@/state/store";
-import { motion as m } from "motion/react";
+import { motion as m, cubicBezier } from "motion/react";
 import { useTransitionRouter } from "next-view-transitions";
 import Player from "@vimeo/player";
 import NextVideos from "@/components/NextVideos";
@@ -18,6 +18,7 @@ const ProjectDetail = ({ video, posts, i }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const { show, autoPlay } = useStore();
   const [isPlaying, setIsPlaying] = useState(false || autoPlay);
+  const [aspect, setAspect] = useState(0);
 
   const togglePlay = () => {
     if (isPlaying) {
@@ -57,9 +58,20 @@ const ProjectDetail = ({ video, posts, i }) => {
       // Initialize the Vimeo Player
       player.current = new Player(container.current, defaultOptions);
 
-      player.current.ready().then(() => {
+      player.current.ready().then(async () => {
         player.current.on("play", play);
         player.current.on("pause", pause);
+
+        try {
+          const videoWidth = await player.current.getVideoWidth();
+          const videoHeight = await player.current.getVideoHeight();
+
+          if (videoWidth && videoHeight) {
+            setAspect(videoWidth / videoHeight);
+          }
+        } catch (error) {
+          console.error("Error getting video dimensions:", error);
+        }
 
         player.current.play();
         setIsLoaded(true);
@@ -79,12 +91,12 @@ const ProjectDetail = ({ video, posts, i }) => {
 
   return (
     <>
-      <div
+      <m.div
         className="player w-full grid grid-cols-1 grid-rows-1 col-start-1 row-start-1 z-10  relative"
         ref={div}
+        animate={{ transform: show ? "scale(0.8)" : "scale(1)" }}
+        transition={{ duration: 0.7, ease: cubicBezier(0.25, 0.1, 0.25, 1) }}
       >
-        <NextVideos posts={posts} i={i} show={show} />
-
         <div className="w-full row-start-1 col-start-1 flex items-center justify-center relative ">
           <m.video
             playsInline
@@ -186,11 +198,11 @@ const ProjectDetail = ({ video, posts, i }) => {
             </m.button>
           ) : null}
         </div>
-      </div>
+      </m.div>
 
       <m.div animate={{ opacity: show ? 1 : 0 }}>
         <Link
-          className="px-4 py-2 z-20 left-1/2 -translate-x-1/2 fixed flex items-center gap-2 text-[0.9375em] font-[100] tracking-[0.25em] uppercase text-white bottom-3  hover:font-[300] hover:tracking-[0.23em] cursor-pointer group"
+          className="px-4 py-2 z-20 left-1/2 -translate-x-1/2 fixed flex items-center gap-2 text-[0.9375em] font-[100] tracking-[0.25em] uppercase text-white bottom-32  hover:font-[300] hover:tracking-[0.23em] cursor-pointer group"
           onClick={handleClick}
           href={`/#${video.slug.current}`}
         >
@@ -212,6 +224,7 @@ const ProjectDetail = ({ video, posts, i }) => {
           Back to Listing / обратно към списъка
         </Link>
       </m.div>
+      <NextVideos posts={posts} i={i} show={show} />
     </>
   );
 };
