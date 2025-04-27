@@ -45,16 +45,6 @@ const ProjectDetail = ({ video, posts, i }) => {
     setIsPlaying(false);
   };
 
-  const onMouseEnter = (e) => {
-    if (player.current) {
-      progressBar.current.style.height = "200%";
-    }
-  };
-
-  const onMouseLeave = (e) => {
-    progressBar.current.style.height = "100%";
-  };
-
   const timelineClick = (e) => {
     const timeline = e.currentTarget;
     const rect = timeline.getBoundingClientRect();
@@ -195,7 +185,7 @@ const ProjectDetail = ({ video, posts, i }) => {
           transition={{ duration: 1.5, delay: 1, ease: "easeInOut" }}
         >
           <div
-            className="aspect-[--aspect] inline w-full [&_iframe]:w-full relative [&_iframe]:aspect-[--aspect] [&_iframe]:h-[calc(var(--aspect)/100%)]"
+            className="group aspect-[--aspect] inline w-full [&_iframe]:w-full relative [&_iframe]:aspect-[--aspect] [&_iframe]:h-[calc(var(--aspect)/100%)]"
             ref={container}
             style={{ "--aspect": `${aspect}` }}
           >
@@ -264,15 +254,13 @@ const ProjectDetail = ({ video, posts, i }) => {
 
             {/* TIMELINE */}
             <m.div
-              className="timeline px-4 w-full absolute bottom-4 h-1"
+              className="timeline w-full absolute -bottom-1 h-1 group-hover:h-2 transition-[height]] duration-300 ease-[cubic-bezier(0.25, 0.1, 0.25, 1)]"
               onClick={timelineClick}
-              onMouseEnter={onMouseEnter}
-              onMouseLeave={onMouseLeave}
               initial={{ opacity: 0 }}
               animate={{ opacity: show ? 1 : 0 }}
             >
               <div
-                className="cursor-pointer h-full ease-[cubic-bezier(0.25, 0.1, 0.25, 1)]  duration-200 bg-white/30 bottom-1 h-full transition-[height] rounded-full overflow-hidden"
+                className="cursor-pointer h-1 ease-[cubic-bezier(0.25, 0.1, 0.25, 1)] bg-white/30 bottom-1 h-full transition-[height] rounded-full overflow-hidden duration-300 group-hover:h-2"
                 ref={progressBar}
               >
                 <m.div
