@@ -48,8 +48,6 @@ const ProjectDetail = ({ video, posts, i }) => {
   const onMouseEnter = (e) => {
     if (player.current) {
       progressBar.current.style.height = "200%";
-      // player.current.pause();
-      console.log({ e });
     }
   };
 
@@ -59,13 +57,13 @@ const ProjectDetail = ({ video, posts, i }) => {
 
   const timelineClick = (e) => {
     const timeline = e.currentTarget;
-    const timelineWidth = timeline.offsetWidth;
-    const clickX = e.clientX - timeline.getBoundingClientRect().left;
-    const clickPercent = clickX / timelineWidth;
+    const rect = timeline.getBoundingClientRect();
+    const clickX = e.clientX - rect.left; // Distance from left edge
+    const clickPercent = Math.min(Math.max(clickX / rect.width, 0), 1);
+    console.log("🚀 ~ timelineClick ~ clickPercent:", clickPercent);
 
-    // Clamp newTime safely
     let newTime = clickPercent * duration;
-    newTime = Math.max(0, Math.min(newTime, duration));
+    newTime = Math.max(0, Math.min(newTime, duration)); // Clamp between 0 and duration
 
     player.current.setCurrentTime(newTime);
   };
@@ -144,6 +142,33 @@ const ProjectDetail = ({ video, posts, i }) => {
         animate={{ transform: show ? "scale(0.8)" : "scale(1)" }}
         transition={{ duration: 0.7, ease: cubicBezier(0.25, 0.1, 0.25, 1) }}
       >
+        <m.div
+          animate={{ opacity: show ? 1 : 0 }}
+          className="absolute -top-24 left-1/2 -translate-x-1/2"
+        >
+          <Link
+            className="px-4 py-2 z-20  flex items-center gap-2 text-[0.9375em] font-[100] tracking-[0.12em] transition-[letter-spacing,font-weight]  duration-700 ease-[cubic-bezier(0.25, 0.1, 0.25, 1)]] uppercase text-white bottom-32  hover:tracking-[0.23em] hover:font-[500] cursor-pointer group"
+            onClick={handleClick}
+            href={`/#${video.slug.current}`}
+          >
+            <svg
+              width="8"
+              height="14"
+              viewBox="0 0 8 14"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M7 1L1 7L7 13"
+                stroke="white"
+                className="group-hover:stroke-[1px]"
+                strokeWidth="0.5"
+                strokeLinecap="round"
+              />
+            </svg>{" "}
+            Back to Listing / обратно към списъка
+          </Link>
+        </m.div>
         <div className="w-full row-start-1 col-start-1 flex items-center justify-center relative ">
           <m.video
             playsInline
@@ -263,30 +288,6 @@ const ProjectDetail = ({ video, posts, i }) => {
         </m.div>
       </m.div>
 
-      <m.div animate={{ opacity: show ? 1 : 0 }}>
-        <Link
-          className="px-4 py-2 z-20 left-1/2 -translate-x-1/2 fixed flex items-center gap-2 text-[0.9375em] font-[100] tracking-[0.25em] uppercase text-white bottom-32  hover:font-[300] hover:tracking-[0.23em] cursor-pointer group"
-          onClick={handleClick}
-          href={`/#${video.slug.current}`}
-        >
-          <svg
-            width="8"
-            height="14"
-            viewBox="0 0 8 14"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M7 1L1 7L7 13"
-              stroke="white"
-              className="group-hover:stroke-[1px]"
-              strokeWidth="0.5"
-              strokeLinecap="round"
-            />
-          </svg>{" "}
-          Back to Listing / обратно към списъка
-        </Link>
-      </m.div>
       <NextVideos posts={posts} i={i} show={show} />
     </>
   );

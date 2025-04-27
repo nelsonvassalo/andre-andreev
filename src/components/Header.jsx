@@ -85,7 +85,7 @@ const Header = () => {
             </Link>
           </li>
           <m.li
-            className="tracking-[0.22em] text-center"
+            className="tracking-[0.12em] text-center transition-[letter-spacing, font-weight] duration-700 ease-[cubic-bezier(0.25, 0.1, 0.25, 1)] hover:font-[300] hover:tracking-[0.23em]"
             initial={{ y: "-100%", opacity: 0 }}
             animate={{
               y: headerScrolled || show ? 0 : "-100%",
