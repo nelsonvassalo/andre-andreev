@@ -29,7 +29,7 @@ const ViewButton = () => {
 
   return (
     <m.button
-      className="self-center z-[100] mt-20 flex items-center gap-2 text-[0.9375em] sticky font-[100] tracking-[0.25em] uppercase text-white bottom-3 transition-colors hover:font-[300] hover:tracking-[0.23em] w-[37px] h-[27px]"
+      className="self-center z-[100] mt-20 flex items-center gap-2 text-[0.9375em] sticky font-[100] tracking-[0.25em] uppercase text-white bottom-3 transition-colors hover:font-[300] hover:tracking-[0.23em] w-[21px] h-[14px]"
       onClick={handleClick}
       // initial={{ transform: "translateY(100px)" }}
       // animate={{
@@ -39,8 +39,8 @@ const ViewButton = () => {
     >
       {viewMode == "list" ? (
         <svg
-          width="29"
-          height="21"
+          width="21"
+          height="14"
           viewBox="0 0 29 21"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -90,8 +90,8 @@ const ViewButton = () => {
         </svg>
       ) : (
         <svg
-          width="28"
-          height="19"
+          width="21"
+          height="14"
           viewBox="0 0 28 19"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"

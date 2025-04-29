@@ -155,6 +155,7 @@ const Hero = ({ vimeoURLs }) => {
           className="w-full h-full object-cover"
           autoPlay
           loop
+          playsInline
           muted
           ref={player}
         ></video>

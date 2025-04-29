@@ -31,12 +31,6 @@ const ProjectDetail = ({ video, posts, i }) => {
     }
   };
 
-  const handleClick = async (e) => {
-    document.documentElement.classList.add("coming-back");
-    ref.current.style.viewTransitionName = video.slug.current;
-    router.push(`/#${video.slug.current}`);
-  };
-
   const play = () => {
     setIsPlaying(true);
   };
@@ -125,40 +119,14 @@ const ProjectDetail = ({ video, posts, i }) => {
 
   return (
     <>
-      <m.div
-        className="player w-full grid grid-cols-1 grid-rows-1 col-start-1 row-start-1 z-10  relative"
+      <div
+        className="player w-full grid grid-cols-1 grid-rows-1 col-start-1 row-start-1 z-10  relative px-10"
         ref={div}
-        initial={{ transform: "scale(1)" }}
-        animate={{ transform: show ? "scale(0.8)" : "scale(1)" }}
-        transition={{ duration: 0.7, ease: cubicBezier(0.25, 0.1, 0.25, 1) }}
+        style={{
+          viewTransitionName: "current",
+          viewTransitionClass: "thumbnail",
+        }}
       >
-        <m.div
-          animate={{ opacity: show ? 1 : 0 }}
-          className="absolute -top-24 left-1/2 -translate-x-1/2"
-        >
-          <Link
-            className="px-4 py-2 z-20  flex items-center gap-2 text-[0.9375em] font-[100] tracking-[0.12em] transition-[letter-spacing,font-weight]  duration-700 ease-[cubic-bezier(0.25, 0.1, 0.25, 1)]] uppercase text-white bottom-32  hover:tracking-[0.23em] hover:font-[500] cursor-pointer group"
-            onClick={handleClick}
-            href={`/#${video.slug.current}`}
-          >
-            <svg
-              width="8"
-              height="14"
-              viewBox="0 0 8 14"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M7 1L1 7L7 13"
-                stroke="white"
-                className="group-hover:stroke-[1px]"
-                strokeWidth="0.5"
-                strokeLinecap="round"
-              />
-            </svg>{" "}
-            Back to Listing / обратно към списъка
-          </Link>
-        </m.div>
         <div className="w-full row-start-1 col-start-1 flex items-center justify-center relative ">
           <m.video
             playsInline
@@ -171,10 +139,6 @@ const ProjectDetail = ({ video, posts, i }) => {
             className="main-loop w-full"
             animate={{ opacity: isLoaded ? 0 : 1 }}
             transition={{ delay: 1, duration: 0.75 }}
-            style={{
-              viewTransitionName: "current",
-              viewTransitionClass: "thumbnail",
-            }}
           />
         </div>
 
@@ -254,7 +218,7 @@ const ProjectDetail = ({ video, posts, i }) => {
 
             {/* TIMELINE */}
             <m.div
-              className="timeline w-full absolute -bottom-1 h-1 group-hover:h-2 transition-[height]] duration-300 ease-[cubic-bezier(0.25, 0.1, 0.25, 1)]"
+              className="timeline w-full absolute -bottom-2 h-1 group-hover:h-2 transition-[height] duration-300 ease-[cubic-bezier(0.25, 0.1, 0.25, 1)]"
               onClick={timelineClick}
               initial={{ opacity: 0 }}
               animate={{ opacity: show ? 1 : 0 }}
@@ -274,9 +238,9 @@ const ProjectDetail = ({ video, posts, i }) => {
             </m.div>
           </div>
         </m.div>
-      </m.div>
+      </div>
 
-      <NextVideos posts={posts} i={i} show={show} />
+      <NextVideos posts={posts} i={i} show={show} video={video} div={div} />
     </>
   );
 };
