@@ -32,7 +32,7 @@ export const NextVideos = ({ posts, i, show, video, div }) => {
         className="absolute -top-12 left-1/2 -translate-x-1/2"
       >
         <Link
-          className="px-4 py-2 z-20  flex items-center gap-2 text-[0.9375em] font-[100] tracking-[0.05em] transition-[letter-spacing,font-weight]  duration-700 ease-[cubic-bezier(0.25, 0.1, 0.25, 1)]] uppercase text-white bottom-32  hover:tracking-[0.12em] hover:font-[500] cursor-pointer group"
+          className="px-4 py-2 z-20  flex items-center gap-2 text-[0.9375em] font-[100] tracking-[0.05em] transition-[letter-spacing,font-weight]  duration-700 ease-[cubic-bezier(0.25, 0.1, 0.25, 1)]] uppercase text-white bottom-32  hover:tracking-[0.07em] hover:font-[500] cursor-pointer group"
           onClick={handleClick}
           href={`/#${video.slug.current}`}
         >

@@ -13,7 +13,7 @@ const Hero = ({ vimeoURLs }) => {
     vimeoURLs[Math.floor(Math.random() * vimeoURLs.length)]
   );
   const isInView = useInView(scope, { amount: "all" });
-  const { setHeaderScrolled } = useStore();
+  const { setHeaderScrolled, headerScrolled } = useStore();
 
   useEffect(() => {
     const sequence = async () => {
@@ -21,13 +21,13 @@ const Hero = ({ vimeoURLs }) => {
       animate(
         ".firstname",
         { filter: "blur(0px)", y: 0, scale: 1 },
-        { duration: 2 }
+        { duration: 1.5 }
       );
 
       await animate(
         ".surname",
         { filter: "blur(0px)", y: 0, scale: 1 },
-        { duration: 2, delay: 0.25 }
+        { duration: 1.5, delay: 0.35 }
       );
     };
 
@@ -35,17 +35,18 @@ const Hero = ({ vimeoURLs }) => {
   }, [animate]);
 
   useEffect(() => {
+    console.log({ isInView });
     setHeaderScrolled(!isInView);
   }, [isInView]);
 
   useEffect(() => {
-    // // Initialize the Vimeo Player
-    // player.current = new Player(container.current, defaultOptions);
+    console.log({ headerScrolled });
+  }, [headerScrolled]);
+
+  useEffect(() => {
+    // Initialize the Vimeo Player
     if (player.current) {
-      console.log({ player });
-      // player.current.ready().then(() => {
       player.current.addEventListener("canplay", () => {
-        // player.current.play();
         setLoaded(true);
       });
     }
@@ -53,7 +54,7 @@ const Hero = ({ vimeoURLs }) => {
 
   return (
     <article
-      className="vimeo-container grid grid-cols-1 grid-rows-1 h-screen w-full snap-start"
+      className="vimeo-container grid grid-cols-1 grid-rows-1 h-[90dvh] w-full snap-start"
       ref={scope}
     >
       <div className="col-start-1 row-start-1 flex items-center justify-center w-full h-full z-10 gap-8">
@@ -89,10 +90,7 @@ const Hero = ({ vimeoURLs }) => {
             </g>
           </svg>
         </div>
-        <div
-          className="surname relative scale-[1.5] blur-[64px]"
-          initial="initial"
-        >
+        <div className="surname relative scale-[1.5] blur-[64px]">
           <div className="bg">
             <svg
               width="454"

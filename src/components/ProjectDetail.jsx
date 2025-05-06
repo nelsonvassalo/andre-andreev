@@ -119,125 +119,127 @@ const ProjectDetail = ({ video, posts, i }) => {
 
   return (
     <>
-      <div
-        className="player w-full grid grid-cols-1 grid-rows-1 col-start-1 row-start-1 z-10  relative px-10"
-        ref={div}
-        style={{
-          viewTransitionName: "current",
-          viewTransitionClass: "thumbnail",
-        }}
-      >
-        <div className="w-full row-start-1 col-start-1 flex items-center justify-center relative ">
-          <m.video
-            playsInline
-            loop
-            ref={ref}
-            muted
-            autoPlay
-            preload="auto"
-            src={video.loop.asset.url}
-            className="main-loop w-full"
-            animate={{ opacity: isLoaded ? 0 : 1 }}
-            transition={{ delay: 1, duration: 0.75 }}
-          />
-        </div>
-
-        <m.div
-          className="row-start-1 col-start-1 inline-flex items-center w-full"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: isLoaded ? 1 : 0 }}
-          transition={{ duration: 1.5, delay: 1, ease: "easeInOut" }}
+      <div className="px-10">
+        <div
+          ref={div}
+          className="player w-full grid grid-cols-1 grid-rows-1 col-start-1 row-start-1 z-10  relative "
+          style={{
+            viewTransitionName: "current",
+            viewTransitionClass: "thumbnail",
+          }}
         >
-          <div
-            className="group aspect-[--aspect] inline w-full [&_iframe]:w-full relative [&_iframe]:aspect-[--aspect] [&_iframe]:h-[calc(var(--aspect)/100%)]"
-            ref={container}
-            style={{ "--aspect": `${aspect}` }}
-          >
-            {/* PLAY BUTTON */}
-            <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
-              {isLoaded ? (
-                <m.button
-                  onClick={togglePlay}
-                  className="play w-[101px] h-[101px] cursor-pointer flex items-center justify-center"
-                  animate={{ opacity: show ? 1 : 0 }}
-                >
-                  {isPlaying ? (
-                    <svg
-                      width="102"
-                      height="102"
-                      viewBox="0 0 102 102"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <circle
-                        cx="50.7991"
-                        cy="50.7991"
-                        r="50.5491"
-                        stroke="white"
-                        strokeWidth="1"
-                      />
-                      <path
-                        d="M33 31.3936C32.8619 31.3936 32.75 31.5055 32.75 31.6436V73.3559C32.75 73.494 32.8619 73.6059 33 73.6059H45.4658C45.6038 73.6059 45.7158 73.494 45.7158 73.3559V31.6436C45.7158 31.5055 45.6038 31.3936 45.4658 31.3936H33Z"
-                        stroke="white"
-                        strokeWidth="1"
-                        strokeLinejoin="round"
-                      />
-                      <path
-                        d="M55.5342 31.3936C55.3961 31.3936 55.2842 31.5055 55.2842 31.6436V73.3559C55.2842 73.494 55.3961 73.6059 55.5342 73.6059H67.9999C68.138 73.6059 68.2499 73.494 68.2499 73.3559V31.6436C68.2499 31.5055 68.138 31.3936 67.9999 31.3936H55.5342Z"
-                        stroke="white"
-                        strokeWidth="1"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  ) : (
-                    <svg
-                      width="102"
-                      height="102"
-                      viewBox="0 0 102 102"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M75.8679 50.6052C75.9839 50.5382 76.0554 50.4144 76.0554 50.2804C76.0554 50.1465 75.9839 50.0227 75.8679 49.9557L37.7686 27.959C37.6525 27.892 37.5096 27.892 37.3936 27.959C37.2775 28.026 37.2061 28.1498 37.2061 28.2838L37.2061 72.2771C37.2061 72.4111 37.2775 72.5349 37.3936 72.6019C37.5096 72.6688 37.6525 72.6688 37.7686 72.6019L75.8679 50.6052Z"
-                        stroke="white"
-                        strokeWidth="1"
-                        strokeLinejoin="round"
-                      />
-                      <circle
-                        cx="50.7991"
-                        cy="50.7991"
-                        r="50.4241"
-                        stroke="white"
-                        strokeWidth="1"
-                      />
-                    </svg>
-                  )}
-                </m.button>
-              ) : null}
-            </div>
-
-            {/* TIMELINE */}
-            <m.div
-              className="timeline w-full absolute -bottom-2 h-1 group-hover:h-2 transition-[height] duration-300 ease-[cubic-bezier(0.25, 0.1, 0.25, 1)]"
-              onClick={timelineClick}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: show ? 1 : 0 }}
-            >
-              <div
-                className="cursor-pointer h-1 ease-[cubic-bezier(0.25, 0.1, 0.25, 1)] bg-white/30 bottom-1 h-full transition-[height] rounded-full overflow-hidden duration-300 group-hover:h-2"
-                ref={progressBar}
-              >
-                <m.div
-                  className="progress bg-white h-full z-40"
-                  // style={{ width: `${progress}%` }}
-                  initial={{ width: 0 }}
-                  animate={{ width: `${progress}%` }}
-                  transition={{ duration: 0.01, ease: "linear" }}
-                ></m.div>
-              </div>
-            </m.div>
+          <div className="w-full row-start-1 col-start-1 flex items-center justify-center relative ">
+            <m.video
+              playsInline
+              loop
+              ref={ref}
+              muted
+              autoPlay
+              preload="auto"
+              src={video.loop.asset.url}
+              className="main-loop w-full"
+              animate={{ opacity: isLoaded ? 0 : 1 }}
+              transition={{ delay: 1, duration: 0.75 }}
+            />
           </div>
-        </m.div>
+
+          <m.div
+            className="row-start-1 col-start-1 inline-flex items-center w-full"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: isLoaded ? 1 : 0 }}
+            transition={{ duration: 1.5, delay: 1, ease: "easeInOut" }}
+          >
+            <div
+              className="group aspect-[--aspect] inline w-full [&_iframe]:w-full relative [&_iframe]:aspect-[--aspect] [&_iframe]:h-[calc(var(--aspect)/100%)]"
+              ref={container}
+              style={{ "--aspect": `${aspect}` }}
+            >
+              {/* PLAY BUTTON */}
+              <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+                {isLoaded ? (
+                  <m.button
+                    onClick={togglePlay}
+                    className="play w-[101px] h-[101px] cursor-pointer flex items-center justify-center"
+                    animate={{ opacity: show ? 1 : 0 }}
+                  >
+                    {isPlaying ? (
+                      <svg
+                        width="102"
+                        height="102"
+                        viewBox="0 0 102 102"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <circle
+                          cx="50.7991"
+                          cy="50.7991"
+                          r="50.5491"
+                          stroke="white"
+                          strokeWidth="1"
+                        />
+                        <path
+                          d="M33 31.3936C32.8619 31.3936 32.75 31.5055 32.75 31.6436V73.3559C32.75 73.494 32.8619 73.6059 33 73.6059H45.4658C45.6038 73.6059 45.7158 73.494 45.7158 73.3559V31.6436C45.7158 31.5055 45.6038 31.3936 45.4658 31.3936H33Z"
+                          stroke="white"
+                          strokeWidth="1"
+                          strokeLinejoin="round"
+                        />
+                        <path
+                          d="M55.5342 31.3936C55.3961 31.3936 55.2842 31.5055 55.2842 31.6436V73.3559C55.2842 73.494 55.3961 73.6059 55.5342 73.6059H67.9999C68.138 73.6059 68.2499 73.494 68.2499 73.3559V31.6436C68.2499 31.5055 68.138 31.3936 67.9999 31.3936H55.5342Z"
+                          stroke="white"
+                          strokeWidth="1"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    ) : (
+                      <svg
+                        width="102"
+                        height="102"
+                        viewBox="0 0 102 102"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M75.8679 50.6052C75.9839 50.5382 76.0554 50.4144 76.0554 50.2804C76.0554 50.1465 75.9839 50.0227 75.8679 49.9557L37.7686 27.959C37.6525 27.892 37.5096 27.892 37.3936 27.959C37.2775 28.026 37.2061 28.1498 37.2061 28.2838L37.2061 72.2771C37.2061 72.4111 37.2775 72.5349 37.3936 72.6019C37.5096 72.6688 37.6525 72.6688 37.7686 72.6019L75.8679 50.6052Z"
+                          stroke="white"
+                          strokeWidth="1"
+                          strokeLinejoin="round"
+                        />
+                        <circle
+                          cx="50.7991"
+                          cy="50.7991"
+                          r="50.4241"
+                          stroke="white"
+                          strokeWidth="1"
+                        />
+                      </svg>
+                    )}
+                  </m.button>
+                ) : null}
+              </div>
+
+              {/* TIMELINE */}
+              <m.div
+                className="timeline w-full absolute -bottom-2 h-1 group-hover:h-2 transition-[height] duration-300 ease-[cubic-bezier(0.25, 0.1, 0.25, 1)]"
+                onClick={timelineClick}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: show ? 1 : 0 }}
+              >
+                <div
+                  className="cursor-pointer h-1 ease-[cubic-bezier(0.25, 0.1, 0.25, 1)] bg-white/30 bottom-1 h-full transition-[height] rounded-full overflow-hidden duration-300 group-hover:h-2"
+                  ref={progressBar}
+                >
+                  <m.div
+                    className="progress bg-white h-full z-40"
+                    // style={{ width: `${progress}%` }}
+                    initial={{ width: 0 }}
+                    animate={{ width: `${progress}%` }}
+                    transition={{ duration: 0.01, ease: "linear" }}
+                  ></m.div>
+                </div>
+              </m.div>
+            </div>
+          </m.div>
+        </div>
       </div>
 
       <NextVideos posts={posts} i={i} show={show} video={video} div={div} />

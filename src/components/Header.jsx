@@ -38,35 +38,6 @@ const Header = () => {
     };
   }, [pathname]);
 
-  useEffect(() => {
-    const menus = Array.from(header.current.querySelectorAll("ul"));
-    const linkMap = menus.map((menu, mI) => {
-      const links = Array.from(menu.querySelectorAll("a:not(.skip)"));
-      return links;
-    });
-    console.log("🚀 ~ linkMap ~ linkMap:", linkMap);
-
-    linkMap.forEach((menu, mI) => {
-      // Each language menu
-      menu.forEach((link, index) => {
-        // Each link in the menu
-        link.addEventListener("mouseenter", () => {
-          console.log(linkMap[0][index], linkMap[1][index]);
-          linkMap[0][index].style.fontWeight = "500";
-          linkMap[0][index].style.letterSpacing = "0.12em";
-          linkMap[1][index].style.fontWeight = "500";
-          linkMap[1][index].style.letterSpacing = "0.12em";
-        });
-        link.addEventListener("mouseleave", () => {
-          linkMap[0][index].style.fontWeight = "100";
-          linkMap[0][index].style.letterSpacing = "0.05em";
-          linkMap[1][index].style.fontWeight = "100";
-          linkMap[1][index].style.letterSpacing = "0.05em";
-        });
-      });
-    });
-  }, []);
-
   return (
     <m.header animate={{ opacity: show ? 1 : 0 }} ref={header}>
       <nav
@@ -77,24 +48,31 @@ const Header = () => {
           <li className="w-1/3">
             <Link
               href="/#projects"
-              className={`transition-all duration-700 ease-[cubic-bezier(0.25, 0.1, 0.25, 1)] ${
+              className={`transition-all duration-700 ease-[cubic-bezier(0.25, 0.1, 0.25, 1)] hover:tracking-[0.12em] hover:font-[500] ${
                 pathname === "/" ? " active" : ""
               }`}
             >
               Projects
             </Link>
           </li>
+          {headerScrolled || show}
           <m.li
             className=" text-center"
             initial={{ y: "-100%", opacity: 0 }}
             animate={{
-              y: headerScrolled || show ? 0 : "-100%",
-              opacity: headerScrolled || show ? 1 : 0,
+              y:
+                headerScrolled || (pathname.includes("/project/") && show)
+                  ? 0
+                  : "-100%",
+              opacity:
+                headerScrolled || (pathname.includes("/project/") && show)
+                  ? 1
+                  : 0,
             }}
           >
             <Link
               href="/"
-              className="skip transition-all duration-700 ease-[cubic-bezier(0.25, 0.1, 0.25, 1)] tracking-[0.05em]  transition-all duration-700 ease-[cubic-bezier(0.25, 0.1, 0.25, 1)] hover:font-[500] hover:tracking-[0.12em]"
+              className="skip transition-all duration-700 ease-[cubic-bezier(0.25, 0.1, 0.25, 1)] tracking-[0.12em]  transition-all duration-300 ease-[cubic-bezier(0.25, 0.1, 0.25, 1)] hover:font-[500] hover:tracking-[0.em]"
               onClick={(e) => {
                 if (pathname === "/") {
                   e.preventDefault();
@@ -109,7 +87,7 @@ const Header = () => {
           <li className="w-1/3 text-right">
             <Link
               href="/info"
-              className={`duration-700 ease-[cubic-bezier(0.25, 0.1, 0.25, 1)] transition-all${
+              className={`duration-700 ease-[cubic-bezier(0.25, 0.1, 0.25, 1)] transition-all hover:tracking-[0.12em] hover:font-[500]${
                 pathname === "/info" ? " active" : ""
               }`}
             >
@@ -130,7 +108,7 @@ const Header = () => {
           <li className="w-1/3">
             <Link
               href="/#projects"
-              className={`duration-700 ease-[cubic-bezier(0.25, 0.1, 0.25, 1)] pointer-events-auto transition-all${
+              className={`duration-700 ease-[cubic-bezier(0.25, 0.1, 0.25, 1)] pointer-events-auto transition-all hover:tracking-[0.12em] hover:font-[500]${
                 pathname === "/" ? " active" : ""
               }`}
             >
@@ -141,7 +119,7 @@ const Header = () => {
           <li className="w-1/3 text-right">
             <Link
               href="info"
-              className={`duration-700 ease-[cubic-bezier(0.25, 0.1, 0.25, 1)] pointer-events-auto transition-all${
+              className={`duration-700 ease-[cubic-bezier(0.25, 0.1, 0.25, 1)] pointer-events-auto transition-all hover:tracking-[0.12em] hover:font-[500]${
                 pathname === "/info" ? " active" : ""
               }`}
             >
