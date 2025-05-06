@@ -3,7 +3,6 @@ import { client, urlFor } from "@/sanity/client";
 import { PortableText } from "@portabletext/react";
 
 export default async function InfoPage() {
-  
   const page = await client.fetch(
     `*[_type == "infoPage"][0]{
       EN_title,
