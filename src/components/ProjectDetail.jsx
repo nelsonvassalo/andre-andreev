@@ -242,7 +242,14 @@ const ProjectDetail = ({ video, posts, i }) => {
         </div>
       </div>
 
-      <NextVideos posts={posts} i={i} show={show} video={video} div={div} />
+      <NextVideos
+        posts={posts}
+        i={i}
+        show={show}
+        video={video}
+        div={div}
+        player={player.current}
+      />
     </>
   );
 };

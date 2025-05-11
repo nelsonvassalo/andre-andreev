@@ -4,9 +4,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { useTransitionRouter } from "next-view-transitions";
 import { motion as m, cubicBezier } from "motion/react";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
+import next from "next";
 
-export const NextVideos = ({ posts, i, show, video, div }) => {
+export const NextVideos = ({ posts, i, show, video, div, player }) => {
   const videos = useRef([]);
   const router = useTransitionRouter();
 
@@ -18,6 +19,29 @@ export const NextVideos = ({ posts, i, show, video, div }) => {
     div.current.style.viewTransitionName = video.slug.current;
     router.push(`/#${video.slug.current}`);
   };
+
+  const handleThumbnailClick = (e, slug, index = 0) => {
+    console.log("thumbnail ran", { slug }, videos.current[index]);
+    const player = document.querySelector(".player");
+    player.style.viewTransitionName = "";
+    videos.current[index].style.viewTransitionName = "current";
+    e && e.preventDefault();
+
+    router.push(`/projects/${slug}`);
+  };
+
+  useEffect(() => {
+    const nextVideo = nextVideos[1];
+
+    player?.ready().then(async () => {
+      player.on("ended", () => {
+        if (nextVideo && nextVideo.slug) {
+          const slug = nextVideo.slug;
+          handleThumbnailClick(null, slug, 1);
+        }
+      });
+    });
+  }, [player, video]);
 
   return (
     <m.div
@@ -86,14 +110,7 @@ export const NextVideos = ({ posts, i, show, video, div }) => {
         ) : (
           <Link
             className="grid grid-cols-1 grid-rows-1 group bg-black"
-            onClick={(e) => {
-              const player = document.querySelector(".player");
-              player.style.viewTransitionName = "";
-              videos.current[index].style.viewTransitionName = "current";
-              e.preventDefault();
-
-              router.push(`/projects/${slug}`);
-            }}
+            onClick={(e) => handleThumbnailClick(e, slug, index)}
             key={`video_${index}`}
             href={`#`}
           >
