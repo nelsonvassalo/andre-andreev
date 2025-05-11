@@ -3,6 +3,7 @@ import { motion as m, useAnimate, stagger, useInView } from "motion/react";
 import { useEffect, useState, useRef } from "react";
 import { useStore } from "@/state/store";
 import Player from "@vimeo/player";
+import ScrollDown from "@/components/ScrollDown";
 
 const Hero = ({ vimeoURLs }) => {
   const [scope, animate] = useAnimate();
@@ -17,22 +18,53 @@ const Hero = ({ vimeoURLs }) => {
 
   useEffect(() => {
     const sequence = async () => {
-      // First animate the firstname
+      // Animate the firstname
       animate(
         ".firstname",
         { filter: "blur(0px)", y: 0, scale: 1 },
         { duration: 1.5 }
       );
 
+      // Animate the surname
       await animate(
         ".surname",
         { filter: "blur(0px)", y: 0, scale: 1 },
         { duration: 1.5, delay: 0.35 }
       );
+
+      // Wait 500ms
+      await new Promise((resolve) => setTimeout(resolve, 500));
+
+      // Wait for loaded if not already true
+      if (!loaded) {
+        await new Promise((resolve) => {
+          const checkLoaded = setInterval(() => {
+            if (loaded) {
+              clearInterval(checkLoaded);
+              resolve();
+            }
+          }, 100);
+        });
+      }
+
+      // Animate the container
+      await animate(
+        container.current,
+        { filter: "blur(0px)", opacity: 1 },
+        { duration: 1.5, ease: "circInOut" }
+      );
+
+      // Cleanup styles after animation
+      if (container.current) {
+        container.current.style.removeProperty("transform");
+        container.current.style.removeProperty("opacity");
+        container.current.style.removeProperty("filter");
+        container.current.style.removeProperty("transform-origin");
+      }
     };
 
     sequence();
-  }, [animate]);
+  }, [animate, loaded]);
 
   useEffect(() => {
     console.log({ isInView });
@@ -54,7 +86,7 @@ const Hero = ({ vimeoURLs }) => {
 
   return (
     <article
-      className="vimeo-container grid grid-cols-1 grid-rows-1 h-[90dvh] w-full snap-start"
+      className="vimeo-container grid grid-cols-1 grid-rows-1 h-screen w-full snap-start"
       ref={scope}
     >
       <div className="col-start-1 row-start-1 flex items-center justify-center w-full h-full z-10 gap-8">
@@ -137,16 +169,6 @@ const Hero = ({ vimeoURLs }) => {
         className="row-start-1 col-start-1  relative"
         ref={container}
         initial={{ filter: "blur(64px)", opacity: 0 }}
-        animate={{ filter: loaded ? "blur(0px)" : "blur(64px)", opacity: 1 }}
-        transition={{ duration: 1.5, ease: "circInOut" }}
-        onAnimationComplete={({ opacity }) => {
-          if (container && opacity === 1) {
-            container.current.style.removeProperty("transform");
-            container.current.style.removeProperty("opacity");
-            container.current.style.removeProperty("filter");
-            container.current.style.removeProperty("transform-origin");
-          }
-        }}
       >
         <video
           src={vimeoURL}
@@ -158,6 +180,7 @@ const Hero = ({ vimeoURLs }) => {
           ref={player}
         ></video>
       </m.div>
+      <ScrollDown />
     </article>
   );
 };

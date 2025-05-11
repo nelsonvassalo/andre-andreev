@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { client, urlFor } from "@/sanity/client";
 import { PortableText } from "@portabletext/react";
+import ScrollDown from "@/components/ScrollDown";
 
 export default async function InfoPage() {
   const page = await client.fetch(
@@ -25,7 +26,7 @@ export default async function InfoPage() {
 
   return (
     <>
-      <section className="h-[90dvh] relative snap-start" id="bio">
+      <section className="h-screen relative snap-start" id="bio">
         <div className="prose prose-sm md:prose-base lg:prose-lg z-10 relative flex items-center h-full py-40">
           <div className="mx-auto flex flex-col items-center">
             <h2 className="tracking-[0.12em] !font-[100] uppercase text-white text-[1.75rem] mb-8">
@@ -50,9 +51,10 @@ export default async function InfoPage() {
           className="w-full h-full object-cover absolute top-0 z-0"
         />
         <div className="overlay bg-black/65 w-full h-full absolute z-1 top-0 p-0 m-0"></div>
+        <ScrollDown />
       </section>
       <section
-        className="h-[90dvh] relative snap-center bg-red-500"
+        className="h-screen relative snap-center bg-red-500"
         id="contact"
       >
         <div className="prose prose-sm md:prose-base lg:prose-lg z-10 relative flex items-center h-full py-40">
@@ -76,8 +78,9 @@ export default async function InfoPage() {
           className="w-full h-full object-cover absolute top-0 z-0"
         />
         <div className="overlay bg-black/65 w-full h-full absolute z-1 top-0 p-0 m-0"></div>
+        <ScrollDown />
       </section>
-      <section className="h-[90dvh] relative snap-end bg-blue-500" id="press">
+      <section className="h-screen relative snap-end bg-blue-500" id="press">
         <div className="prose prose-sm md:prose-base lg:prose-lg z-10 relative flex items-center h-full py-40">
           <div className="mx-auto flex flex-col items-center">
             <h2 className="tracking-[0.12em] !font-[100] uppercase text-white text-[1.75rem] mb-8">
