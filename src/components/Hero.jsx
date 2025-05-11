@@ -180,7 +180,7 @@ const Hero = ({ vimeoURLs }) => {
           ref={player}
         ></video>
       </m.div>
-      <ScrollDown />
+      {!headerScrolled && <ScrollDown />}
     </article>
   );
 };
