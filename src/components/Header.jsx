@@ -58,12 +58,12 @@ const Header = () => {
           {headerScrolled || show}
           <m.li
             className=" text-center"
-            initial={{ y: "-100%", opacity: 0 }}
+            initial={{ y: "-150%", opacity: 0 }}
             animate={{
               y:
                 headerScrolled || (pathname.includes("/project/") && show)
                   ? 0
-                  : "-100%",
+                  : "-150%",
               opacity:
                 headerScrolled || (pathname.includes("/project/") && show)
                   ? 1
@@ -72,7 +72,7 @@ const Header = () => {
           >
             <Link
               href="/"
-              className="skip transition-all duration-700 ease-[cubic-bezier(0.25, 0.1, 0.25, 1)] tracking-[0.12em]  transition-all duration-300 ease-[cubic-bezier(0.25, 0.1, 0.25, 1)] hover:font-[500] hover:tracking-[0.em]"
+              className="skip transition-all duration-700 ease-[cubic-bezier(0.25, 0.1, 0.25, 1)] tracking-[0.12em]  transition-all duration-300 ease-[cubic-bezier(0.25, 0.1, 0.25, 1)] hover:font-[500] hover:tracking-[0.2em]"
               onClick={(e) => {
                 if (pathname === "/") {
                   e.preventDefault();
