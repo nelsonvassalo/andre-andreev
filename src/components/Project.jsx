@@ -9,7 +9,7 @@ import { useTransitionRouter } from "next-view-transitions";
 import { useViewTransitionWithScroll } from "@/hooks/useViewTransitionWithScroll";
 
 const Project = ({ item, index }) => {
-  const [setIsCurrent] = useState(false);
+  const [_, setIsCurrent] = useState(false);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: false, amount: "all" });
   const {

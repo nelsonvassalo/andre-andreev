@@ -67,13 +67,15 @@ const Hero = ({ vimeoURLs }) => {
   }, [animate, loaded]);
 
   useEffect(() => {
-    console.log({ isInView });
     setHeaderScrolled(!isInView);
+    if (isInView) {
+      player.current.play();
+    } else {
+      player.current.pause();
+    }
   }, [isInView]);
 
-  useEffect(() => {
-    console.log({ headerScrolled });
-  }, [headerScrolled]);
+  useEffect(() => {}, [headerScrolled]);
 
   useEffect(() => {
     // Initialize the Vimeo Player
