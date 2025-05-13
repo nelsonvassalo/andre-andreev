@@ -6,7 +6,7 @@ const ScrollDown = () => {
   return (
     <AP>
       <m.div
-        className="text-white absolute bottom-2 left-1/2 -translate-x-1/2 z-20"
+        className="text-white absolute bottom-1 left-1/2 -translate-x-1/2 z-20"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
