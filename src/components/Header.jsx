@@ -71,7 +71,7 @@ const Header = () => {
           >
             <Link
               href="/"
-              className="skip transition-all duration-700 ease-[cubic-bezier(0.25, 0.1, 0.25, 1)] tracking-[0.12em]  transition-all duration-300 ease-[cubic-bezier(0.25, 0.1, 0.25, 1)] hover:font-[500] hover:tracking-[0.2em] leading-none"
+              className="skip transition-all duration-700 ease-[cubic-bezier(0.25, 0.1, 0.25, 1)] tracking-[0.12em]  transition-all duration-300 ease-[cubic-bezier(0.25, 0.1, 0.25, 1)] hover:font-[500] hover:tracking-[0.15em] leading-none"
               onClick={(e) => {
                 if (pathname === "/") {
                   e.preventDefault();

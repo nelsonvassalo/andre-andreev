@@ -52,6 +52,13 @@ const ProjectDetail = ({ video, posts, i }) => {
     player.current.setCurrentTime(newTime);
   };
 
+  const handleBackClick = async (e) => {
+    document.documentElement.classList.add("coming-back");
+
+    div.current.style.viewTransitionName = video.slug.current;
+    router.push(`/#${video.slug.current}`);
+  };
+
   // Vimeo player setup
   useEffect(() => {
     if (div.current && !player.current) {
@@ -125,7 +132,7 @@ const ProjectDetail = ({ video, posts, i }) => {
           className="player w-full grid grid-cols-1 grid-rows-1 col-start-1 row-start-1 z-10  relative "
           style={{
             viewTransitionName: "current",
-            viewTransitionClass: "thumbnail",
+            viewTransitionClass: "thumbnail_fast",
           }}
         >
           <div className="w-full row-start-1 col-start-1 flex items-center justify-center relative ">
@@ -240,6 +247,36 @@ const ProjectDetail = ({ video, posts, i }) => {
             </div>
           </m.div>
         </div>
+        {/* BACK BUTTON */}
+        <m.div
+          className="mt-10 text-center max-md:flex justify-center w-full flex"
+          initial={{ y: "100%", opacity: 0 }}
+          animate={{ y: show ? 0 : "100%", opacity: show ? 1 : 0 }}
+          transition={{ y: { bounce: 0.2 } }}
+        >
+          <Link
+            className="px-4 py-2 z-20  flex items-center gap-2 text-sm md:text-[0.9375em] font-[100] tracking-[0.05em] transition-[letter-spacing,font-weight] duration-700 ease-[cubic-bezier(0.25, 0.1, 0.25, 1)]] uppercase text-white bottom-32  hover:tracking-[0.07em] hover:font-[500] cursor-pointer group"
+            onClick={handleBackClick}
+            href={`/#${video.slug.current}`}
+          >
+            <svg
+              width="8"
+              height="14"
+              viewBox="0 0 8 14"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M7 1L1 7L7 13"
+                stroke="white"
+                className="group-hover:stroke-[1px]"
+                strokeWidth="0.5"
+                strokeLinecap="round"
+              />
+            </svg>{" "}
+            Back to Listing / обратно към списъка
+          </Link>
+        </m.div>
       </div>
 
       <NextVideos

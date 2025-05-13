@@ -165,6 +165,13 @@ ul.grid li:hover h2 {
     // isolation: isolate;
   }
 
+  ::view-transition-group(.thumbnail_fast) {
+    animation-duration: 1s;
+    // animation-fill-mode: both;
+    animation-timing-function: cubic-bezier(1, 0, 0, 1);
+
+  }
+
 
   ::view-transition-old(.thumbnail),
   ::view-transition-new(.thumbnail) {

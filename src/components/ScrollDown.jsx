@@ -6,20 +6,20 @@ const ScrollDown = () => {
   return (
     <AP>
       <m.div
-        className="text-white absolute bottom-10 left-1/2 -translate-x-1/2 z-20"
+        className="text-white absolute bottom-2 left-1/2 -translate-x-1/2 z-20"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
       >
         <svg
           width="3"
-          height="47"
-          viewBox="0 0 3 25"
+          height="26"
+          viewBox="0 0 3 26"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
           <m.path
-            d="M1.89398 1.01617L1.89398 33.586"
+            d="M1.89398 1.20856L1.89398 24.586"
             stroke="currentColor"
             strokeWidth="2"
             strokeLinecap="round"
