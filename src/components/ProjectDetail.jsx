@@ -132,7 +132,7 @@ const ProjectDetail = ({ video, posts, i }) => {
           className="player w-full grid grid-cols-1 grid-rows-1 col-start-1 row-start-1 z-10  relative "
           style={{
             viewTransitionName: "current",
-            viewTransitionClass: "thumbnail_fast",
+            viewTransitionClass: "thumbnail",
           }}
         >
           <div className="w-full row-start-1 col-start-1 flex items-center justify-center relative ">

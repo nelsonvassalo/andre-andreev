@@ -5,7 +5,6 @@ import Image from "next/image";
 import { useTransitionRouter } from "next-view-transitions";
 import { motion as m, cubicBezier } from "motion/react";
 import { useRef, useEffect } from "react";
-("next");
 
 export const NextVideos = ({ posts, i, show, video, div, player }) => {
   const videos = useRef([]);
@@ -62,7 +61,7 @@ export const NextVideos = ({ posts, i, show, video, div, player }) => {
               className="col-start-1 row-start-1 row-span-1 col-span-1  w-full h-full object-cover"
               style={{
                 viewTransitionName: `null_${index}`,
-                viewTransitionClass: "thumbnail_fast",
+                viewTransitionClass: "thumbnail",
               }}
             />
             <div className="col-start-1 row-start-1 row-span-1 col-span-1 flex items-center justify-center z-10">
