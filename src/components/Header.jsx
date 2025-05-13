@@ -14,8 +14,6 @@ const Header = () => {
   useEffect(() => {
     let timer;
 
-    console.log({ pathname });
-
     // Disable UI on project pages
     if (pathname.includes("projects")) {
       setShow(false);
@@ -60,11 +58,11 @@ const Header = () => {
             initial={{ y: "-150%", opacity: 0 }}
             animate={{
               y:
-                headerScrolled || (pathname.includes("/project/") && show)
+                headerScrolled || (pathname.includes("/projects/") && show)
                   ? 0
                   : "-150%",
               opacity:
-                headerScrolled || (pathname.includes("/project/") && show)
+                headerScrolled || (pathname.includes("/projects/") && show)
                   ? 1
                   : 0,
             }}
