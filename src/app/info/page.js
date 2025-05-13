@@ -27,12 +27,12 @@ export default async function InfoPage() {
   return (
     <>
       <section className="h-screen relative snap-start" id="bio">
-        <div className="prose prose-sm md:prose-base lg:prose-lg z-10 relative flex items-center h-full py-40">
+        <div className="prose prose-sm md:prose-base lg:prose-lg z-10 relative flex items-center h-full py-40 px-4">
           <div className="mx-auto flex flex-col items-center">
-            <h2 className="tracking-[0.12em] !font-[100] uppercase text-white text-[1.75rem] mb-8">
+            <h2 className="text-lg tracking-[0.12em] !font-[100] uppercase text-white md:text-[1.75rem] mb-8 text-center">
               {page.en_title} / {page.bg_title}
             </h2>
-            <div className="flex flex-col gap-10 text-white font-thin text-[1.54rem] tracking-[0.01em] leading-[1.54] mx-auto px-4 max-w-5xl [&_p]:text-pretty text-center">
+            <div className="flex flex-col gap-10 text-white font-thin text-base md:text-[1.54rem] tracking-[0.01em] leading-[1.54] mx-auto px-4 max-w-5xl [&_p]:text-pretty text-center">
               <div>
                 <PortableText value={page.bio_en} className="text-white" />
               </div>
@@ -57,12 +57,12 @@ export default async function InfoPage() {
         className="h-screen relative snap-center bg-red-500"
         id="contact"
       >
-        <div className="prose prose-sm md:prose-base lg:prose-lg z-10 relative flex items-center h-full py-40">
+        <div className="prose prose-sm md:prose-base lg:prose-lg z-10 relative flex items-center h-full py-40 px-4">
           <div className="mx-auto flex flex-col items-center">
-            <h2 className="tracking-[0.12em] !font-[100] uppercase text-white text-[1.75rem] mb-8">
+            <h2 className="text-lg tracking-[0.12em] !font-[100] uppercase text-white md:text-[1.75rem] mb-8 text-center">
               {page.en_contact_title} / {page.bg_contact_title}
             </h2>
-            <div className="flex flex-col gap-10 text-white font-thin text-[1.54rem] tracking-[0.01em] leading-[1.54] mx-auto px-4 max-w-5xl [&_p]:text-pretty text-center">
+            <div className="flex flex-col gap-10 text-white font-thin text-base md:text-[1.54rem] tracking-[0.01em] leading-[1.54] mx-auto px-4 max-w-5xl [&_p]:text-pretty text-center">
               <div>
                 <PortableText value={page.contact} className="text-white" />
               </div>
@@ -81,12 +81,12 @@ export default async function InfoPage() {
         <ScrollDown />
       </section>
       <section className="h-screen relative snap-end bg-blue-500" id="press">
-        <div className="prose prose-sm md:prose-base lg:prose-lg z-10 relative flex items-center h-full py-40">
+        <div className="prose prose-sm md:prose-base lg:prose-lg z-10 relative flex items-center h-full py-40 px-4">
           <div className="mx-auto flex flex-col items-center">
-            <h2 className="tracking-[0.12em] !font-[100] uppercase text-white text-[1.75rem] mb-8">
+            <h2 className="text-lg tracking-[0.12em] !font-[100] uppercase text-white md:text-[1.75rem] mb-8 text-center">
               {page.en_press_title} / {page.bg_press_title}
             </h2>
-            <div className="flex flex-col gap-10 text-white font-thin text-[1.54rem] tracking-[0.01em] leading-[1.54] mx-auto px-4 max-w-5xl [&_p]:text-pretty text-center">
+            <div className="flex flex-col gap-10 text-white font-thin text-base md:text-[1.54rem] tracking-[0.01em] leading-[1.54] mx-auto px-4 max-w-5xl [&_p]:text-pretty text-center">
               <div>
                 {page.press?.map((item, index) => (
                   <a

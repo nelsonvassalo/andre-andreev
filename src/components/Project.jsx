@@ -65,7 +65,7 @@ const Project = ({ item, index }) => {
       >
         <div className="col-start-1 row-start-1 top-0 w-full h-full z-10 flex items-center justify-center tracking-[0.22em] !font-[100] uppercase pointer-events-none">
           <m.h2
-            className="text-4xl text-white flex flex-wrap"
+            className="px-8 md:text-4xl text-white flex flex-wrap text-center text-balance justify-center"
             variants={{
               hidden: {},
               visible: {

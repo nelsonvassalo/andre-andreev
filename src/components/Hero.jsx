@@ -89,14 +89,15 @@ const Hero = ({ vimeoURLs }) => {
       className="vimeo-container grid grid-cols-1 grid-rows-1 h-screen w-full snap-start"
       ref={scope}
     >
-      <div className="col-start-1 row-start-1 flex items-center justify-center w-full h-full z-10 gap-8">
-        <div className="firstname scale-[1.5] blur-[64px]">
+      <div className="max-md:px-8 col-start-1 row-start-1 flex items-center justify-center w-full h-full z-10 gap-4 md:gap-8">
+        <div className="firstname scale-[1.5] blur-[64px] max-w-full">
           <svg
             width="310"
             height="110"
             viewBox="0 0 410 142"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
+            className="max-w-full"
           >
             <g>
               <path
@@ -122,13 +123,14 @@ const Hero = ({ vimeoURLs }) => {
             </g>
           </svg>
         </div>
-        <div className="surname relative scale-[1.5] blur-[64px]">
+        <div className="surname relative scale-[1.5] blur-[64px] max-w-full">
           <div className="bg">
             <svg
               width="454"
               height="110"
               viewBox="0 0 581 142"
               fill="none"
+              className="max-w-full"
               xmlns="http://www.w3.org/2000/svg"
             >
               <g>
