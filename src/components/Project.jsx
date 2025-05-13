@@ -45,14 +45,6 @@ const Project = ({ item, index }) => {
     }, 1000);
   }, []);
 
-  useEffect(() => {
-    if (isInView) {
-      video.current.play();
-    } else {
-      video.current.pause();
-    }
-  }, [isInView]);
-
   return (
     <li
       ref={ref}
