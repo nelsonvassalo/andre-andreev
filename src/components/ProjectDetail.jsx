@@ -248,7 +248,12 @@ const ProjectDetail = ({ video, posts, i }) => {
           </m.div>
         </div>
         {/* BACK BUTTON */}
-        <div className="mt-10 text-center max-md:flex justify-center w-full flex">
+        <m.div
+          className="mt-10 text-center max-md:flex justify-center w-full flex"
+          initial={{ y: "100%", opacity: 0 }}
+          animate={{ y: show ? 0 : "100%", opacity: show ? 1 : 0 }}
+          transition={{ y: { bounce: 0.2 } }}
+        >
           <Link
             className="px-4 py-2 z-20  flex items-center gap-2 text-sm md:text-[0.9375em] font-[100] tracking-[0.05em] transition-[letter-spacing,font-weight] duration-700 ease-[cubic-bezier(0.25, 0.1, 0.25, 1)]] uppercase text-white bottom-32  hover:tracking-[0.07em] hover:font-[500] cursor-pointer group"
             onClick={handleBackClick}
@@ -271,7 +276,7 @@ const ProjectDetail = ({ video, posts, i }) => {
             </svg>{" "}
             Back to Listing / обратно към списъка
           </Link>
-        </div>
+        </m.div>
       </div>
 
       <NextVideos

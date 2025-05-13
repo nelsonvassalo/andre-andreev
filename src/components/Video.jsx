@@ -8,10 +8,6 @@ const Video = ({ src, thumbnail, isInView }) => {
   const container = useRef(null);
   const { viewMode } = useStore();
 
-  const onMouseEnter = () => {};
-
-  const onMouseLeave = () => {};
-
   useEffect(() => {
     const videoElement = videoRef.current;
 
@@ -35,11 +31,11 @@ const Video = ({ src, thumbnail, isInView }) => {
       videoElement.style.aspectRatio = "2.3518637238/1";
 
       if (isInView) {
-        // Only reset time when coming into view
         videoElement.currentTime = 0;
 
         let playPromise;
         if (viewMode === "list") {
+          play();
           container.current.classList.add("active");
           playPromise = videoElement.play();
 

@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Video from "@/components/Video";
 import { useStore } from "@/state/store";
@@ -9,8 +9,7 @@ import { useTransitionRouter } from "next-view-transitions";
 import { useViewTransitionWithScroll } from "@/hooks/useViewTransitionWithScroll";
 
 const Project = ({ item, index }) => {
-  const router = useTransitionRouter();
-  const [isCurrent, setIsCurrent] = useState(false);
+  const [setIsCurrent] = useState(false);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: false, amount: "all" });
   const {
@@ -45,6 +44,14 @@ const Project = ({ item, index }) => {
       }
     }, 1000);
   }, []);
+
+  useEffect(() => {
+    if (isInView) {
+      video.current.play();
+    } else {
+      video.current.pause();
+    }
+  }, [isInView]);
 
   return (
     <li
@@ -106,8 +113,8 @@ const Project = ({ item, index }) => {
         {/* Video component with consistent dimensions */}
         <div className="col-start-1 row-start-1 w-full h-full">
           <Video
-            src={item.loop.asset.url}
             isInView={isInView}
+            src={item.loop.asset.url}
             thumbnail={item.thumbnail?.asset.url}
           />
         </div>
