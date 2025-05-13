@@ -248,7 +248,7 @@ const ProjectDetail = ({ video, posts, i }) => {
           </m.div>
         </div>
         {/* BACK BUTTON */}
-        {/*  <m.div
+        <m.div
           className="mt-10 text-center max-md:flex justify-center w-full flex"
           initial={{ y: "100%", opacity: 0 }}
           animate={{ y: show ? 0 : "100%", opacity: show ? 1 : 0 }}
@@ -276,7 +276,7 @@ const ProjectDetail = ({ video, posts, i }) => {
             </svg>{" "}
             Back to Listing / обратно към списъка
           </Link>
-        </m.div> */}
+        </m.div>
       </div>
 
       <NextVideos
