@@ -55,7 +55,6 @@ const Header = () => {
               Projects
             </Link>
           </li>
-          {headerScrolled || show}
           <m.li
             className=" text-center"
             initial={{ y: "-150%", opacity: 0 }}

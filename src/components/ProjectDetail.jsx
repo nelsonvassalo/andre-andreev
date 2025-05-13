@@ -119,7 +119,7 @@ const ProjectDetail = ({ video, posts, i }) => {
 
   return (
     <>
-      <div className="px-10">
+      <div className="px-10 w-full">
         <div
           ref={div}
           className="player w-full grid grid-cols-1 grid-rows-1 col-start-1 row-start-1 z-10  relative "
