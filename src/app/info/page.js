@@ -2,6 +2,7 @@ import Image from "next/image";
 import { client, urlFor } from "@/sanity/client";
 import { PortableText } from "@portabletext/react";
 import ScrollDown from "@/components/ScrollDown";
+import { portableTextComponents } from "../utils/portableText";
 
 export default async function InfoPage() {
   const page = await client.fetch(
@@ -34,10 +35,18 @@ export default async function InfoPage() {
             </h2>
             <div className="flex flex-col gap-10 text-white font-thin text-base md:text-[1.54rem] tracking-[0.01em] leading-[1.54] mx-auto px-4 max-w-5xl [&_p]:text-pretty text-center">
               <div>
-                <PortableText value={page.bio_en} className="text-white" />
+                <PortableText
+                  value={page.bio_en}
+                  className="text-white"
+                  components={portableTextComponents}
+                />
               </div>
               <div>
-                <PortableText value={page.bio_bg} className="text-white" />
+                <PortableText
+                  value={page.bio_bg}
+                  className="text-white"
+                  components={portableTextComponents}
+                />
               </div>
             </div>
           </div>
@@ -50,7 +59,7 @@ export default async function InfoPage() {
           sizes="(max-width: 768px) 100vw, 50vw"
           className="w-full h-full object-cover absolute top-0 z-0"
         />
-        <div className="overlay bg-black/65 w-full h-full absolute z-1 top-0 p-0 m-0"></div>
+
         <ScrollDown />
       </section>
       <section
@@ -64,7 +73,11 @@ export default async function InfoPage() {
             </h2>
             <div className="flex flex-col gap-10 text-white font-thin text-base md:text-[1.54rem] tracking-[0.01em] leading-[1.54] mx-auto px-4 max-w-5xl [&_p]:text-pretty text-center">
               <div>
-                <PortableText value={page.contact} className="text-white" />
+                <PortableText
+                  value={page.contact}
+                  className="text-white"
+                  components={portableTextComponents}
+                />
               </div>
             </div>
           </div>
@@ -77,7 +90,7 @@ export default async function InfoPage() {
           sizes="(max-width: 768px) 100vw, 50vw"
           className="w-full h-full object-cover absolute top-0 z-0"
         />
-        <div className="overlay bg-black/65 w-full h-full absolute z-1 top-0 p-0 m-0"></div>
+
         <ScrollDown />
       </section>
       <section className="h-screen relative snap-end bg-blue-500" id="press">
@@ -86,20 +99,18 @@ export default async function InfoPage() {
             <h2 className="text-lg tracking-[0.12em] !font-[100] uppercase text-white md:text-[1.75rem] mb-8 text-center">
               {page.en_press_title} / {page.bg_press_title}
             </h2>
-            <div className="flex flex-col gap-10 text-white font-thin text-base md:text-[1.54rem] tracking-[0.01em] leading-[1.54] mx-auto px-4 max-w-5xl [&_p]:text-pretty text-center">
-              <div>
-                {page.press?.map((item, index) => (
-                  <a
-                    key={index}
-                    href={item.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-gray-300 transition-colors"
-                  >
-                    {item.title}
-                  </a>
-                ))}
-              </div>
+            <div className="flex flex-col gap-y-4 text-white font-thin text-base md:text-[1.54rem] tracking-[0.01em] leading-[1.54] mx-auto px-4 max-w-5xl [&_p]:text-pretty text-center">
+              {page.press?.map((item, index) => (
+                <a
+                  key={index}
+                  href={item.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-gray-300 transition-colors underline underline-offset-4 decoration-1"
+                >
+                  {item.title}
+                </a>
+              ))}
             </div>
           </div>
         </div>
@@ -111,7 +122,6 @@ export default async function InfoPage() {
           sizes="(max-width: 768px) 100vw, 50vw"
           className="w-full h-full object-cover absolute top-0 z-0"
         />
-        <div className="overlay bg-black/65 w-full h-full absolute z-1 top-0 p-0 m-0"></div>
       </section>
     </>
   );
