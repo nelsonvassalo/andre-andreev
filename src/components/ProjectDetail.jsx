@@ -274,7 +274,7 @@ const ProjectDetail = ({ video, posts, i }) => {
                 strokeLinecap="round"
               />
             </svg>{" "}
-            Back to Listing / обратно към списъка
+            Back / обратно
           </Link>
         </m.div>
       </div>
