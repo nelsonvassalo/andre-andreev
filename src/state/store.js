@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
 export const useStore = create((set) => ({
-  viewMode: "list",
+  viewMode: "grid",
   setViewMode: (mode) => set({ viewMode: mode }),
   current: null,
   setCurrent: (index) => set({ current: index }),

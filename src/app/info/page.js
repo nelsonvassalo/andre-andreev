@@ -52,11 +52,13 @@ export default async function InfoPage() {
           </div>
         </div>
         <Image
-          src={urlFor(page.photo).width(1200).height(800).url()}
+          src={urlFor(page.photo).url()}
           alt="Profile photo"
-          width={1200}
-          height={800}
-          sizes="(max-width: 768px) 100vw, 50vw"
+          width={2560}
+          height={2560}
+          sizes="100vw"
+          quality={100}
+          priority
           className="w-full h-full object-cover absolute top-0 z-0"
         />
 
@@ -83,11 +85,12 @@ export default async function InfoPage() {
           </div>
         </div>
         <Image
-          src={urlFor(page.contact_photo).width(1200).height(800).url()}
+          src={urlFor(page.contact_photo).url()}
           alt="Profile photo"
-          width={1200}
-          height={800}
-          sizes="(max-width: 768px) 100vw, 50vw"
+          width={2560}
+          height={2000}
+          quality={100}
+          sizes="100vw"
           className="w-full h-full object-cover absolute top-0 z-0"
         />
 
@@ -115,11 +118,12 @@ export default async function InfoPage() {
           </div>
         </div>
         <Image
-          src={urlFor(page.press_photo).width(1200).height(800).url()}
+          src={urlFor(page.press_photo).url()}
           alt="Profile photo"
-          width={1200}
-          height={800}
-          sizes="(max-width: 768px) 100vw, 50vw"
+          width={2650}
+          height={2000}
+          sizes="100vw"
+          quality={100}
           className="w-full h-full object-cover absolute top-0 z-0"
         />
       </section>
