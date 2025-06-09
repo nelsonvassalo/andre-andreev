@@ -2,7 +2,6 @@
 import { motion as m, useAnimate, stagger, useInView } from "motion/react";
 import { useEffect, useState, useRef } from "react";
 import { useStore } from "@/state/store";
-import Player from "@vimeo/player";
 import ScrollDown from "@/components/ScrollDown";
 
 const Hero = ({ vimeoURLs }) => {
@@ -10,11 +9,13 @@ const Hero = ({ vimeoURLs }) => {
   const player = useRef(null);
   const container = useRef(null);
   const [loaded, setLoaded] = useState(false);
-  const [vimeoURL] = useState(
-    vimeoURLs[Math.floor(Math.random() * vimeoURLs.length)]
-  );
+  const [vimeoURL, setVimeoURL] = useState(null);
   const isInView = useInView(scope, { amount: "all" });
   const { setHeaderScrolled, headerScrolled } = useStore();
+
+  useEffect(() => {
+    setVimeoURL(vimeoURLs[Math.floor(Math.random() * vimeoURLs.length)]);
+  }, [vimeoURLs]);
 
   useEffect(() => {
     const sequence = async () => {
