@@ -41,7 +41,7 @@ export default async function InfoPage() {
                   components={portableTextComponents}
                 />
               </div>
-              
+
               <div>
                 <PortableText
                   value={page.bio_bg}
@@ -74,12 +74,30 @@ export default async function InfoPage() {
             <h2 className="text-lg tracking-[0.12em] !font-[100] uppercase text-white md:text-[1.75rem] mb-8 text-center">
               {page.en_contact_title} / {page.bg_contact_title}
             </h2>
-            <div className="flex flex-col gap-10 text-white font-thin text-base md:text-[1.54rem] tracking-[0.01em] leading-[1.54] mx-auto px-4 max-w-5xl [&_p]:text-pretty text-center">
-              <div>
+            <div className="flex flex-col gap-10 text-white font-thin text-base md:text-[1.54rem] tracking-[0.01em] leading-[1.54] mx-auto px-4 max-w-5xl [&_p]:text-pretty text-center group">
+              <div className="group">
                 <PortableText
                   value={page.contact}
                   className="text-white"
-                  components={portableTextComponents}
+                  components={{
+                    ...portableTextComponents,
+                    marks: {
+                      ...portableTextComponents.marks,
+                      link: ({ value, children }) => {
+                        const { href } = value;
+                        return (
+                          <a
+                            href={href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="transition-all duration-[750ms] group-hover:tracking-[0.1em] underline underline-offset-4 decoration-1 group-hover:blur-md hover:!blur-none focus:!blur-none ease-in-out hover:!tracking-[0.01em]"
+                          >
+                            {children}
+                          </a>
+                        );
+                      },
+                    },
+                  }}
                 />
               </div>
             </div>
@@ -103,14 +121,14 @@ export default async function InfoPage() {
             <h2 className="text-lg tracking-[0.12em] !font-[100] uppercase text-white md:text-[1.75rem] mb-8 text-center">
               {page.en_press_title} / {page.bg_press_title}
             </h2>
-            <div className="flex flex-col gap-y-4 text-white font-thin text-base md:text-[1.54rem] tracking-[0.01em] leading-[1.54] mx-auto px-4 max-w-5xl [&_p]:text-pretty text-center">
+            <div className="flex flex-col gap-y-4 text-white font-thin text-base md:text-[1.54rem] tracking-[0.01em] leading-[1.54] mx-auto px-4 max-w-5xl [&_p]:text-pretty text-center group">
               {page.press?.map((item, index) => (
                 <a
                   key={index}
                   href={item.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-gray-300 transition-colors underline underline-offset-4 decoration-1"
+                  className="transition-all duration-[750ms] group-hover:tracking-[0.1em] underline underline-offset-4 decoration-1 group-hover:blur-md hover:!blur-none focus:!blur-none ease-in-out hover:!tracking-[0.01em]"
                 >
                   {item.title}
                 </a>
