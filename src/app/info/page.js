@@ -41,6 +41,7 @@ export default async function InfoPage() {
                   components={portableTextComponents}
                 />
               </div>
+              
               <div>
                 <PortableText
                   value={page.bio_bg}
